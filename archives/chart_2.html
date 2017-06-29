@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<canvas id="myChart"></canvas>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+	<script type="text/javascript">
+		var ctx = document.getElementById('myChart').getContext('2d');
+		var chart = new Chart(ctx, {
+			// The type of chart we want to create
+			type: 'bar',
+
+			// The data for our dataset
+			data: {
+				labels: [
+					"China Times", 
+					"ETNEWS新聞雲", 
+					"TVBS 新聞", 
+					"udn.com 聯合新聞網", 
+					"Yahoo! 奇摩新聞", 
+					"三立新聞", 
+					"中央社新聞粉絲團", 
+					"今周刊", 
+					"商業周刊（商周.com）", 
+					"壹週刊", 
+					"天下雜誌", 
+					"東森新聞", 
+					"自由時報", 
+					"蘋果日報", 
+					"蘋果日報即時新聞", 
+					"遠見雜誌"],
+				datasets: [
+					{
+						label: "5 月平均互動黏著度",
+						yAxisID: 'y-axis-1',
+						backgroundColor: 'rgba(109, 92, 174, 0.5)',
+						borderColor: 'rgba(109, 92, 174, 1)',
+						borderWidth: 2,
+						data: [
+							2.70,
+							3.62,
+							3.49,
+							2.91,
+							3.00,
+							2.62,
+							2.53,
+							2.37,
+							2.29,
+							3.40,
+							2.22,
+							3.48,
+							2.90,
+							3.21,
+							2.46,
+							2.09,
+						],
+					},
+					{
+						label: "5 月不重複互動人數",
+						yAxisID: 'y-axis-0',
+						backgroundColor: 'rgba(72, 176, 247, 0.5)',
+						borderColor: 'rgba(72, 176, 247, 1)',
+						borderWidth: 2,
+						data: [
+							378340,
+							1668711,
+							778829,
+							359034,
+							815560,
+							553966,
+							60557,
+							37832,
+							144843,
+							1050652,
+							148719,
+							2104832,
+							387846,
+							1525576,
+							577906,
+							94256,
+						],
+					}
+				],
+			  
+			},
+
+			// Configuration options go here
+			options: {
+			  scales: {
+				yAxes:[
+					{
+						position: 'right',
+						id: "y-axis-0",
+						scaleLabel: {
+							display: true,
+							labelString: "人數"
+						}
+					},
+					{
+						position: 'left',
+						id: "y-axis-1",
+						scaleLabel: {
+							display: true,
+							labelString: "黏著度"
+						}
+					},
+				],
+				xAxes:[{
+					scaleLabel: {
+						display: true,
+						labelString: "粉絲頁名稱"
+					},
+					ticks: {
+						autoSkip: false
+					}
+				}]
+			  },
+			}
+		});
+	</script>
+</body>
+</html>

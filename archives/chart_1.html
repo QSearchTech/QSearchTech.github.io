@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<canvas id="myChart"></canvas>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+	<script type="text/javascript">
+		var ctx = document.getElementById('myChart').getContext('2d');
+		var chart = new Chart(ctx, {
+			// The type of chart we want to create
+			type: 'bar',
+
+			// The data for our dataset
+			data: {
+				labels: [
+					"China Times", 
+					"ETNEWS新聞雲", 
+					"TVBS 新聞", 
+					"udn.com 聯合新聞網", 
+					"Yahoo! 奇摩新聞", 
+					"三立新聞", 
+					"中央社新聞粉絲團", 
+					"今周刊", 
+					"商業周刊（商周.com）", 
+					"壹週刊", 
+					"天下雜誌", 
+					"東森新聞", 
+					"自由時報", 
+					"蘋果日報", 
+					"蘋果日報即時新聞", 
+					"遠見雜誌"],
+				datasets: [
+					{
+						label: "3 - 5 月互動黏著度成長率",
+						backgroundColor: 'rgba(109, 92, 174, 0.5)',
+						borderColor: 'rgba(109, 92, 174, 1)',
+						borderWidth: 2,
+						data: [
+							22.44,
+							-2.7,
+							2.47,
+							2.92,
+							-10.78,
+							1.75,
+							-1.53,
+							-0.92,
+							-3.53,
+							10.64,
+							-2.41,
+							-5.23,
+							-3.49,
+							-1.94,
+							-15.71,
+							-1.2,
+						],
+					},
+					{
+						label: "3 - 5 月不重複的粉絲人數成長率",
+						backgroundColor: 'rgba(72, 176, 247, 0.5)',
+						borderColor: 'rgba(72, 176, 247, 1)',
+						borderWidth: 2,
+						data: [
+							-22.14,
+							-15.25,
+							-21.62,
+							15.59,
+							-13.76,
+							-9.48,
+							-15,
+							-35.07,
+							0.78,
+							25.5,
+							-26.84,
+							-8.32,
+							-18.94,
+							16.42,
+							24.52,
+							-14.51,
+						],
+					}
+				],
+			  
+			},
+
+			// Configuration options go here
+			options: {
+			  scales: {
+				yAxes:[{
+					ticks:{
+						callback: function(value) {
+							return value + "%";
+						}
+					},
+					scaleLabel: {
+						display: true,
+						labelString: "百分比"
+					}
+				}],
+				xAxes:[{
+					scaleLabel: {
+						display: true,
+						labelString: "粉絲頁名稱"
+					}
+				}]
+			  },
+			  tooltips: {
+			  	titleMarginBottom: 10,
+				bodySpacing: 10,
+				callbacks: {
+	                label: function(tooltipItems, data) { 
+                        return ' ' + data.datasets[tooltipItems.datasetIndex].label + ' : ' + tooltipItems.yLabel + '%';
+                    }
+	            }
+			  }
+			}
+		});
+	</script>
+</body>
+</html>
