@@ -21,6 +21,9 @@
 		<link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
 		<link href="assets/plugins/swiper/css/swiper.css" rel="stylesheet" type="text/css" media="screen" />
 		<!-- END PLUGINS -->
+		<!-- BEGIN ANGULAR CSS -->
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.0/angular-material.min.css">
+		<!-- END ANGULAR CSS -->
 		<!-- BEGIN PAGES CSS -->
 		<link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css" />
 		<link class="main-stylesheet" href="pages/css/pages-icons.css" rel="stylesheet" type="text/css" />
@@ -31,7 +34,7 @@
 	</head>
 	<body class="pace-dark" ng-controller="VisualizeController" ng-init="init()">
 		<!-- BEGIN HEADER -->
-		<nav class="header bg-header transparent-dark " data-pages="header" data-pages-header="autoresize" data-pages-resize-class="dark">
+		<nav class="header bg-header transparent-dark" data-pages="header" data-pages-header="autoresize" data-pages-resize-class="dark">
 			<div class="container relative">
 				<!-- BEGIN LEFT CONTENT -->
 				<div class="pull-left">
@@ -123,27 +126,159 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-md-12">
-								<h5>1. Select your chart type.</h5>
+								<h5 class="semi-bold">1. Select your chart type.</h5>
 							</div>
 							<div class="col-md-12">
-								<form class="custom-radio">
-									<label class="text-capitalize">
-										<input type="radio" value="linechart" ng-model="chart.type">
-										line chart
-									</label>
-									<label class="text-capitalize">
-										<input type="radio" value="barchart" ng-model="chart.type">
-										bar chart
-									</label>
-								</form>
+								<div class="custom-radio">
+									<md-radio-group ng-model="chart.type">
+										<md-radio-button value="bar" class="md-primary text-capitalize semi-bold">bar chart</md-radio-button>
+										<md-radio-button value="line" class="md-primary text-capitalize semi-bold">line chart</md-radio-button>
+										<md-radio-button value="other" class="md-primary text-capitalize semi-bold">other</md-radio-button>
+								    </md-radio-group>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>	
 		</section>
-		<section ng-if="(chart.type === 'barchart')">
-			
+		<section class="x-data-barchart" ng-if="(chart.type === 'barchart')">
+			<div class="container-xs-height">
+				<div class="col-xs-height col-middle text-left">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<h5 class="semi-bold">2. Data and Options for the X-Axis</h5>
+							</div>
+							<div class="col-md-12">
+								<form class="custom-form" name="XlabelForm">
+									<md-input-container>
+										<label class="text-capitalize">x axis label name</label>
+										<input required name="XlabelName" ng-model="chart.x_label">
+										<div ng-messages="XlabelForm.XlabelName.$error">
+											<div ng-message="required">This is required.</div>
+										</div>
+							        </md-input-container>
+							        <md-input-container class="md-block">
+										<label class="text-capitalize">x axis label data</label>
+										<textarea ng-model="chart.x_data" md-select-on-focus required name="XlabelData"></textarea>
+										<div ng-messages="XlabelForm.XlabelData.$error">
+											<div ng-message="required">This is required.</div>
+										</div>
+							        </md-input-container>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="y-data-barchart" ng-if="(chart.type === 'barchart')">
+			<div class="container-xs-height">
+				<div class="col-xs-height col-middle text-left">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<h5 class="semi-bold">3. Data and Options for the Y-Axis</h5>
+							</div>
+							<div class="col-md-12">
+								<div class="custom-form">
+									<h5 class="semi-bold">Y-Axis Left (Required)</h5>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="custom-form">
+									<md-input-container>
+										<label class="text-capitalize semi-bold">y axis label name</label>
+										<input ng-model="chart.y_label_1">
+							        </md-input-container>
+							        <span class="padding"></span>
+									<md-checkbox ng-model="chart.y_label_1_percentage" aria-label="Checkbox 1" class="text-capitalize">
+										in percentage
+									</md-checkbox>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="custom-form">
+									<h5 class="semi-bold">Y-Axis Right (Optional)</h5>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="custom-form">
+									<md-input-container>
+										<label class="text-capitalize semi-bold">y axis label name</label>
+										<input ng-model="chart.y_label_2">
+							        </md-input-container>
+							        <span class="padding"></span>
+									<md-checkbox ng-model="chart.y_label_2_percentage" aria-label="Checkbox 2" class="text-capitalize">
+										in percentage
+									</md-checkbox>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="custom-form">
+									<h5 class="semi-bold">Y-Axis Datasets</h5>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="custom-form">
+									<button class="btn btn-primary btn-animated from-left fa fa-plus" type="button" ng-click="add_dataset()">
+									    <span class="text-capitalize">add new dataset</span>
+									</button>
+								</div>
+							</div>
+							<div ng-repeat="data in chart.y_dataset track by $index" class="col-md-12">
+								<div class="custom-form">
+									<h6 class="bold">Dataset {{$index + 1}}</h6>
+									<div layout="row">
+										<md-input-container>
+											<label class="text-capitalize semi-bold">dataset label name</label>
+											<input ng-model="data.label">
+								        </md-input-container>
+								        <md-input-container>
+											<label class="text-capitalize semi-bold">dataset display color</label>
+											<md-select class="text-capitalize semi-bold" ng-model="data.color">
+												<md-option ng-repeat="single_color in color" ng-value="single_color.name" class="text-capitalize semi-bold">
+												{{single_color.name}}
+												</md-option>
+											</md-select>
+										</md-input-container>
+									</div>
+									<md-radio-group ng-model="data.axis">
+										<md-radio-button value="1" class="md-primary text-capitalize semi-bold">follow left y axis</md-radio-button>
+										<md-radio-button value="2" class="md-primary text-capitalize semi-bold">follow right y axis</md-radio-button>
+								    </md-radio-group>
+							        <md-input-container class="md-block">
+										<label class="text-capitalize semi-bold">dataset data</label>
+										<textarea ng-model="data.data"></textarea>
+							        </md-input-container>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="chart-preview" ng-if="(current_step === 1)">
+			<div class="container-xs-height">
+				<div class="col-xs-height col-middle text-left">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<hr>
+								<div class="custom-form">
+									<button class="btn btn-info btn-animated from-left fa fa-eye" type="button" ng-click="preview_chart()">
+									    <span class="text-capitalize">preview chart</span>
+									</button>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<canvas id="chart" ng-if="(chart_preview === true)"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</section>
 		<!-- BEGIN CORE FRAMEWORK -->
 		<script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>
