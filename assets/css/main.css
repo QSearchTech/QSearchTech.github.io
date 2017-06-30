@@ -1,0 +1,9 @@
+section.step-guide {
+  padding: 200px 0px 50px 0px;
+}
+section.chart-type .custom-radio label {
+  margin-right: 20px;
+}
+section.chart-type .custom-radio label input {
+  margin-right: 5px;
+}

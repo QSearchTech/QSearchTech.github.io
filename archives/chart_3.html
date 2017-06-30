@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<canvas id="myChart"></canvas>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+	<script type="text/javascript">
+		var ctx = document.getElementById('myChart').getContext('2d');
+		var chart = new Chart(ctx, {
+			// The type of chart we want to create
+			type: 'bar',
+
+			// The data for our dataset
+			data: {
+				labels: [
+					"China Times", 
+					"ETNEWS新聞雲", 
+					"TVBS 新聞", 
+					"udn.com 聯合新聞網", 
+					"Yahoo! 奇摩新聞", 
+					"三立新聞", 
+					"中央社新聞粉絲團", 
+					"今周刊", 
+					"商業周刊（商周.com）", 
+					"壹週刊", 
+					"天下雜誌", 
+					"東森新聞", 
+					"自由時報", 
+					"蘋果日報", 
+					"蘋果日報即時新聞", 
+					"遠見雜誌"],
+				datasets: [
+					{
+						label: "3 - 5 月影響力成長率",
+						backgroundColor: 'rgba(109, 92, 174, 0.5)',
+						borderColor: 'rgba(109, 92, 174, 1)',
+						borderWidth: 2,
+						data: [
+							0.75,
+							-30.2,
+							-21.65,
+							-0.1,
+							-22.95,
+							-8,
+							-20.87,
+							-33.31,
+							-10.95,
+							73.67,
+							-20.42,
+							-27.16,
+							-23.21,
+							13.68,
+							-1.14,
+							-16.61,
+						],
+					},
+				],
+			  
+			},
+
+			// Configuration options go here
+			options: {
+			  scales: {
+				yAxes:[{
+					ticks:{
+						callback: function(value) {
+							return value + "%";
+						}
+					},
+					scaleLabel: {
+						display: true,
+						labelString: "百分比"
+					}
+				}],
+				xAxes:[{
+					scaleLabel: {
+						display: true,
+						labelString: "粉絲頁名稱"
+					},
+					ticks: {
+						autoSkip: false
+					}
+				}]
+			  },
+			  tooltips: {
+			  	titleMarginBottom: 10,
+				bodySpacing: 10,
+				callbacks: {
+	                label: function(tooltipItems, data) { 
+                        return ' ' + data.datasets[tooltipItems.datasetIndex].label + ' : ' + tooltipItems.yLabel + '%';
+                    }
+	            }
+			  }
+			}
+		});
+	</script>
+</body>
+</html>
