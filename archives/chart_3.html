@@ -4,8 +4,8 @@
 	<title></title>
 </head>
 <body>
-	<div class="chart-container" style="position: relative; height:80vh; width:80vw">
-    	<canvas id="myChart" width="400" height="300"></canvas>
+	<div class="chart-container" style="position: relative; height:100vh; width:100vw">
+    	<canvas id="myChart" width="400" height="400"></canvas>
 	</div>	
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
 	<script type="text/javascript">
@@ -94,7 +94,7 @@
                         return ' ' + data.datasets[tooltipItems.datasetIndex].label + ' : ' + tooltipItems.yLabel + '%';
                     }
 	            }
-			  }
+			  },
 			}
 		});
 	</script>
