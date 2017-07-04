@@ -134,7 +134,8 @@
 		});
 
 		if (isMobile()) {
-		    $('#myChart').attr('width', width).attr('height', width * 2 / 3);
+		    document.getElementById('myChart').setAttribute('width', width);
+		    document.getElementById('myChart').setAttribute('height', width * 2 / 3);
 		}
 	</script>
 </body>
