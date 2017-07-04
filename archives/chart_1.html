@@ -4,7 +4,7 @@
 	<title></title>
 </head>
 <body>
-	<canvas id="myChart" width="400" height="300"></canvas>
+	<canvas id="myChart" width="900" height="450"></canvas>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
 	<script type="text/javascript">
 		var width = window.innerWidth;	
@@ -132,6 +132,10 @@
 			  }
 			}
 		});
+
+		if (isMobile()) {
+		    $('#myChart').attr('width', width).attr('height', width * 2 / 3);
+		}
 	</script>
 </body>
 </html>
