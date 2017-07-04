@@ -15,7 +15,11 @@
 		  })(navigator.userAgent||navigator.vendor||window.opera);
 		  return check;
 		}
-
+		
+		if (isMobile()) {
+		    document.getElementById('myChart').setAttribute('width', width);
+		    document.getElementById('myChart').setAttribute('height', width * 2 / 3);
+		}
 		var ctx = document.getElementById('myChart').getContext('2d');
 		var chart = new Chart(ctx, {
 			// The type of chart we want to create
@@ -132,11 +136,6 @@
 			  }
 			}
 		});
-
-		if (isMobile()) {
-		    document.getElementById('myChart').setAttribute('width', width);
-		    document.getElementById('myChart').setAttribute('height', width * 2 / 3);
-		}
 	</script>
 </body>
 </html>
