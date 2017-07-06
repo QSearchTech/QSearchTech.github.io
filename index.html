@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 		<meta charset="utf-8" />
-		<title>Pages - Admin Dashboard UI Kit</title>
+		<title>QSearch Design</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<link rel="apple-touch-icon" href="pages/ico/60.png">
 		<link rel="apple-touch-icon" sizes="76x76" href="pages/ico/76.png">
@@ -163,7 +163,26 @@
 					<!-- START CONTAINER FLUID -->
 					<div class="container-fluid container-fixed-lg">
 						<!-- BEGIN PlACE PAGE CONTENT HERE -->
-						
+						<div class="row">
+							<div class="col-md-4">
+								<h5 class="sm-text-center" ng-class="{'text-primary': current_step === 1}">
+									<span class="bold text-uppercase">step 1<br></span>
+									<span>Select chart type and configure options.</span>
+								</h5>
+							</div>
+							<div class="col-md-4">
+								<h5 class="sm-text-center" ng-class="{'text-primary': current_step === 2}">
+									<span class="bold text-uppercase">step 2<br></span>
+									<span>Download the rendered HTML file.</span>
+								</h5>
+							</div>
+							<div class="col-md-4">
+								<h5 class="sm-text-center" ng-class="{'text-primary': current_step === 3}">
+									<span class="bold text-uppercase">step 3<br></span>
+									<span>Add file to repository and commit.</span>
+								</h5>
+							</div>
+						</div>
 						<!-- END PLACE PAGE CONTENT HERE -->
 					</div>
 					<!-- END CONTAINER FLUID -->
