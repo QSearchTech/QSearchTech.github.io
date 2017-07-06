@@ -9,7 +9,7 @@
 	</style>
 </head>
 <body>
-	<canvas id="myChart" width="300" height="150"></canvas>
+	<canvas id="myChart" width="300" height="300"></canvas>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
 	<script type="text/javascript">
 		var width = window.innerWidth;	
@@ -26,8 +26,6 @@
 		    document.getElementById('myChart').setAttribute('height', 300);
 		}
 		var ctx = document.getElementById('myChart').getContext('2d');
-		ctx.style.width = '300px';
-		ctx.style.height = '200px';
 		var chart = new Chart(ctx, {
 			// The type of chart we want to create
 			type: 'bar',
