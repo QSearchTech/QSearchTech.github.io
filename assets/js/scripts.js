@@ -116,7 +116,7 @@ var vm = new Vue({
 
 			// chart options configuring
 			canvas_content.options = {
-				responsive: false,
+				// responsive: false,
 				scales: {
 					xAxes: [{
 						scaleLabel: {
