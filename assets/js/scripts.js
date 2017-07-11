@@ -84,7 +84,7 @@ var vm = new Vue({
 
 			canvas_content.data.datasets = vm.chart.y_dataset.map(function(element){
 				console.log(element);
-				var new_element;
+				var new_element = {};
 				var color = vm.detect_color(element.color);
 
 				new_element.label = element.label;
