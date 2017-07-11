@@ -144,7 +144,7 @@ var vm = new Vue({
 
 			// Y Axis handling
 			if (vm.chart.y_label_2 !== '') {
-				canvas_content.options.scales.yAxes = {};
+				canvas_content.options.scales.yAxes = [];
 				if (vm.chart.y_label_1_percentage === true) {
 					canvas_content.options.scales.yAxes.unshift({
 						position: 'left',
@@ -203,7 +203,7 @@ var vm = new Vue({
 					});
 				}
 			} else {
-				canvas_content.options.scales.yAxes = {};
+				canvas_content.options.scales.yAxes = [];
 				if (vm.chart.y_label_1_percentage === true) {
 					canvas_content.options.scales.yAxes.unshift({
 						position: 'left',
