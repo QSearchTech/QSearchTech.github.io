@@ -16,14 +16,14 @@
 		  return check;
 		}
 		if (isMobile()) {
-		    document.getElementById('myChart').setAttribute('width', 300);
-		    document.getElementById('myChart').setAttribute('height', 250);
+		    document.getElementById("myChart").setAttribute("width", 300);
+		    document.getElementById("myChart").setAttribute("height", 250);
 		    console.log(width);
 		}
-		var ctx = document.getElementById('myChart').getContext('2d');
+		var ctx = document.getElementById("myChart").getContext("2d");
 		var chart = new Chart(ctx, {
 			// The type of chart we want to create
-			type: 'bar',
+			type: "bar",
 
 			// The data for our dataset
 			data: {
@@ -47,9 +47,9 @@
 				datasets: [
 					{
 						label: "5 月平均互動黏著度",
-						yAxisID: 'y-axis-1',
-						backgroundColor: 'rgba(109, 92, 174, 0.5)',
-						borderColor: 'rgba(109, 92, 174, 1)',
+						yAxisID: "y-axis-1",
+						backgroundColor: "rgba(109, 92, 174, 0.5)",
+						borderColor: "rgba(109, 92, 174, 1)",
 						borderWidth: 2,
 						data: [
 							2.70,
@@ -72,9 +72,9 @@
 					},
 					{
 						label: "5 月不重複互動人數",
-						yAxisID: 'y-axis-0',
-						backgroundColor: 'rgba(72, 176, 247, 0.5)',
-						borderColor: 'rgba(72, 176, 247, 1)',
+						yAxisID: "y-axis-0",
+						backgroundColor: "rgba(72, 176, 247, 0.5)",
+						borderColor: "rgba(72, 176, 247, 1)",
 						borderWidth: 2,
 						data: [
 							378340,
@@ -104,7 +104,7 @@
 			  scales: {
 				yAxes:[
 					{
-						position: 'right',
+						position: "right",
 						id: "y-axis-0",
 						scaleLabel: {
 							display: true,
@@ -115,7 +115,7 @@
 						}
 					},
 					{
-						position: 'left',
+						position: "left",
 						id: "y-axis-1",
 						scaleLabel: {
 							display: true,

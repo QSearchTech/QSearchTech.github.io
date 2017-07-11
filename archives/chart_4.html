@@ -22,13 +22,13 @@
 		}
 		
 		if (isMobile()) {
-		    document.getElementById('myChart').setAttribute('width', 360);
-		    document.getElementById('myChart').setAttribute('height', 360);
+		    document.getElementById("myChart").setAttribute("width", 360);
+		    document.getElementById("myChart").setAttribute("height", 360);
 		}
-		var ctx = document.getElementById('myChart').getContext('2d');
+		var ctx = document.getElementById("myChart").getContext("2d");
 		var chart = new Chart(ctx, {
 			// The type of chart we want to create
-			type: 'bar',
+			type: "bar",
 
 			// The data for our dataset
 			data: {
@@ -52,8 +52,8 @@
 				datasets: [
 					{
 						label: "3 - 5 月互動黏著度成長率",
-						backgroundColor: 'rgba(109, 92, 174, 0.5)',
-						borderColor: 'rgba(109, 92, 174, 1)',
+						backgroundColor: "rgba(109, 92, 174, 0.5)",
+						borderColor: "rgba(109, 92, 174, 1)",
 						borderWidth: 2,
 						data: [
 							22.44,
@@ -76,8 +76,8 @@
 					},
 					{
 						label: "3 - 5 月不重複的粉絲人數成長率",
-						backgroundColor: 'rgba(72, 176, 247, 0.5)',
-						borderColor: 'rgba(72, 176, 247, 1)',
+						backgroundColor: "rgba(72, 176, 247, 0.5)",
+						borderColor: "rgba(72, 176, 247, 1)",
 						borderWidth: 2,
 						data: [
 							-22.14,
@@ -136,7 +136,7 @@
           		bodyFontSize: isMobile() ? ( width < 360 ? 10 : 12) : 16,
 				callbacks: {
 	                label: function(tooltipItems, data) { 
-                        return ' ' + data.datasets[tooltipItems.datasetIndex].label + ' : ' + tooltipItems.yLabel + '%';
+                        return " " + data.datasets[tooltipItems.datasetIndex].label + " : " + tooltipItems.yLabel + "%";
                     }
 	            }
 			  }

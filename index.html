@@ -186,7 +186,20 @@
 						</div>
 						<div class="row m-t-20" v-if="(current_step === 1)">
 							<div class="col-md-12">
-								<h5 class="semi-bold">1. Select your chart type.</h5>
+								<h5 class="semi-bold">1. Enter you chart title.</h5>
+							</div>
+							<div class="col-md-12">
+								<form role="form" class="p-l-20">
+									<div class="form-group form-group-default required">
+								        <label>Chart Title</label>
+								        <input type="text" class="form-control" v-model="chart.title">
+								    </div>
+								</form>
+							</div>
+						</div>
+						<div class="row m-t-20" v-if="(current_step === 1)">
+							<div class="col-md-12">
+								<h5 class="semi-bold">2. Select your chart type.</h5>
 							</div>
 							<div class="col-md-12">
 								<div class="radio radio-info p-l-20">
@@ -201,7 +214,7 @@
 						</div>
 						<div class="row m-t-20" v-if="(chart.type === 'bar')">
 							<div class="col-md-12">
-								<h5 class="semi-bold">2. Data and Options for the X-Axis</h5>
+								<h5 class="semi-bold">3. Data and Options for the X-Axis</h5>
 							</div>
 							<div class="col-md-12">
 								<form role="form" class="p-l-20">
@@ -218,7 +231,7 @@
 						</div>
 						<div class="row m-t-20" v-if="(chart.type === 'bar')">
 							<div class="col-md-12">
-								<h5 class="semi-bold">3. Data and Options for the Y-Axis</h5>
+								<h5 class="semi-bold">4. Data and Options for the Y-Axis</h5>
 							</div>
 							<div class="col-md-12">
 								<div class="p-l-20">
@@ -316,9 +329,12 @@
 									<button class="btn btn-info btn-animated from-left fa fa-eye" type="button" v-on:click="preview_chart()">
 									    <span class="text-capitalize">preview chart</span>
 									</button>
+									<button class="btn btn-success btn-animated from-left fa fa-download m-l-20" type="button" data-toggle="modal" data-target="#downloadModal">
+									    <span class="text-capitalize">Download Chart</span>
+									</button>
 								</div>
 							</div>
-							<div class="col-md-12">
+							<div class="col-md-12 p-t-30">
 								<canvas id="chart"></canvas>
 							</div>
 						</div>
@@ -333,6 +349,36 @@
 			<!-- END PAGE CONTENT WRAPPER -->
 		</div>
 		<!-- END PAGE CONTAINER -->
+		<!-- BEGIN MODALS -->
+		<div class="modal fade slide-up disable-scroll" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="modalSlideUpLabel" aria-hidden="false">
+		    <div class="modal-dialog">
+		        <div class="modal-content-wrapper">
+			        <div class="modal-content">
+			            <div class="modal-header clearfix text-left">
+			                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			                  <i class="pg-close fs-14"></i>
+			                </button>
+			                <h5 class="bold">Download Chart File</h5>
+			            </div>
+			            <div class="modal-body">
+			                <form role="form">
+							    <div class="form-group form-group-default required">
+							        <label>Chart Filename</label>
+							        <input type="text" class="form-control" required v-model="filename">
+							    </div>
+			                </form>
+			            </div>
+			            <div class="modal-footer">
+			            	<button class="btn btn-success btn-animated from-left fa fa-download m-l-20" type="button" v-on:click="download_file()">
+							    <span class="text-capitalize">Download File</span>
+							</button>
+			            </div>
+			        </div>
+		        </div>
+		        <!-- /.modal-content -->
+		    </div>
+		</div>
+		<!-- ENd MODALS -->
 		<!-- BEGIN VENDOR JS -->
 		<script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>
 		<script src="assets/plugins/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
