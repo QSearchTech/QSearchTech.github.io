@@ -209,6 +209,8 @@
 									<input type="radio" id="line" value="line" v-model="chart.type">
 									<label for="line" class="text-capitalize semi-bold">line chart</label>
 									<br>
+									<input type="radio" id="table" value="table" v-model="chart.type">
+									<label for="table" class="text-capitalize semi-bold">table</label>
 								</div>
 							</div>
 						</div>
@@ -322,20 +324,30 @@
 								</div>
 							</div>
 						</div>
-						<div class="row" v-if="(current_step === 1)">
+						<div class="row" v-if="(chart.type === 'bar')">
 							<div class="col-md-12">
 								<hr>
 								<div class="p-l-20">
 									<button class="btn btn-info btn-animated from-left fa fa-eye" type="button" v-on:click="preview_chart(); download_file();">
 									    <span class="text-capitalize">preview chart</span>
 									</button>
-									<a class="btn btn-success btn-animated from-left fa fa-download m-l-20" id="download-btn" download="chart.html">
+									<a class="btn btn-success btn-animated from-left fa fa-download m-l-20" id="download-btn" download="chart.html" v-if="(show_download === true)">
 									    <span class="text-capitalize">Download Chart</span>
 									</a>
 								</div>
 							</div>
 							<div class="col-md-12 p-t-30">
 								<canvas id="chart"></canvas>
+							</div>
+						</div>
+						<div class="row m-t-20" v-if="(chart.type === 'table)">
+							<div class="col-md-12">
+								<h5 class="semi-bold">3. Table Header</h5>
+							</div>
+							<div class="col-md-12">
+								<form class="p-l-20" role="form">
+									
+								</form>
 							</div>
 						</div>
 						<!-- END PLACE PAGE CONTENT HERE -->
