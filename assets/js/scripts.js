@@ -253,6 +253,7 @@ var vm = new Vue({
 		},
 		download_file: function () {
  			console.log('download');
+ 			console.log(vm.canvas_content);
  			// mobile chart adjustments
  			// vm.canvas_content.options.responsive = false;
  			// vm.canvas_content.options.scales.xAxes[0].ticks.fontSize = isMobile() ? ( width < 360 ? 8 : 10) : 12;
