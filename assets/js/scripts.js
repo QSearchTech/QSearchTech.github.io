@@ -20,8 +20,8 @@ var data = {
 };
 
 // components
-Vue.component('downloadModal', {
-  template: '#downloadModal'
+Vue.component('download-modal', {
+  template: '#download-modal'
 });
 
 var vm = new Vue({
