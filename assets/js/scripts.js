@@ -1,3 +1,4 @@
+// global variable
 var data = {
 	current_step: 1,
 	chart_preview: false,
@@ -14,8 +15,14 @@ var data = {
 	},
 	filename: '',
 	canvas_content: {},
-	chart_file: null
+	chart_file: null,
+	show_download_modal: false,
 };
+
+// components
+Vue.component('downloadModal', {
+  template: '#downloadModal'
+});
 
 var vm = new Vue({
 	// options
@@ -244,18 +251,7 @@ var vm = new Vue({
 			var ctx = document.getElementById('chart').getContext('2d');
 			var chart = new Chart(ctx,vm.canvas_content);
 		},
-		render_file: function (text, filename) {
-			var file = new File([text], filename, {type: 'text/plain'});
-
-			// Manually revoke the object URL to avoid memory leaks
-			if (vm.chart_file !== null) {
-				window.URL.revokeObjectURL(chart_file);
-			}
-
-			vm.chart_file = window.URL.createObjectURL(file);
-			return vm.chart_file;
-		},
- 		download_file: function () {
+		download_file: function () {
  			console.log('download');
  			// mobile chart adjustments
  			vm.canvas_content.options.responsive = false;
@@ -272,6 +268,17 @@ var vm = new Vue({
 
 			var link = vm.render_file(chart_text, vm.filename);
 			window.open(link, "_blank");
-		}
+		},
+		render_file: function (text, filename) {
+			var file = new File([text], filename, {type: 'text/plain'});
+
+			// Manually revoke the object URL to avoid memory leaks
+			if (vm.chart_file !== null) {
+				window.URL.revokeObjectURL(chart_file);
+			}
+
+			vm.chart_file = window.URL.createObjectURL(file);
+			return vm.chart_file;
+		},
 	},
 });
