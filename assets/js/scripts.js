@@ -15,6 +15,7 @@ var data = {
 	},
 	filename: '',
 	canvas_content: {},
+	saved_canvas_content: {},
 	chart_file: null,
 	show_download_modal: false,
 };
@@ -248,6 +249,7 @@ var vm = new Vue({
 				}
 			}
 
+			vm.saved_canvas_content = vm.canvas_content;
 			var ctx = document.getElementById('chart').getContext('2d');
 			var chart = new Chart(ctx,vm.canvas_content);
 		},
@@ -255,7 +257,7 @@ var vm = new Vue({
  			console.log('download');
  			
     		var cache = [];
-			var chart_data = JSON.stringify(vm.canvas_content, function(key, value) {
+			var chart_data = JSON.stringify(vm.saved_canvas_content, function(key, value) {
 			    if (typeof value === 'object' && value !== null) {
 			        if (cache.indexOf(value) !== -1) {
 			            // Circular reference found, discard key
