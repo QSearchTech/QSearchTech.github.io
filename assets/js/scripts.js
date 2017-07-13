@@ -249,13 +249,17 @@ var vm = new Vue({
 				}
 			}
 
-			vm.saved_canvas_content = vm.canvas_content;
+			// vm.saved_canvas_content = vm.canvas_content;
+			vm.saved_canvas_content.push(Vue.util.extend({}, vm.canvas_content));
+			
 			var ctx = document.getElementById('chart').getContext('2d');
 			var chart = new Chart(ctx,vm.canvas_content);
 		},
 		download_file: function () {
  			console.log('download');
- 			
+
+ 			vm.saved_canvas_content.options.responsive = false;
+
     		var cache = [];
 			var chart_data = JSON.stringify(vm.saved_canvas_content, function(key, value) {
 			    if (typeof value === 'object' && value !== null) {
