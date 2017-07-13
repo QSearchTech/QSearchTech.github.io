@@ -328,10 +328,10 @@
 							<div class="col-md-12">
 								<hr>
 								<div class="p-l-20">
-									<button class="btn btn-info btn-animated from-left fa fa-eye" type="button" v-on:click="preview_chart(); download_file();">
+									<button class="btn btn-info btn-animated from-left fa fa-eye" type="button" v-on:click="preview_chart(); download_chart();">
 									    <span class="text-capitalize">preview chart</span>
 									</button>
-									<a class="btn btn-success btn-animated from-left fa fa-download m-l-20" id="download-btn" download="chart.html" v-if="(show_download === true)">
+									<a class="btn btn-success btn-animated from-left fa fa-download m-l-20" id="download-btn" download="chart.html">
 									    <span class="text-capitalize">Download Chart</span>
 									</a>
 								</div>
@@ -342,11 +342,72 @@
 						</div>
 						<div class="row m-t-20" v-if="(chart.type === 'table')">
 							<div class="col-md-12">
-								<h5 class="semi-bold">3. Table Header</h5>
+								<h5 class="semi-bold">3. Table Settings and Header Data</h5>
+							</div>
+							<div class="col-md-12">
+								<div class="p-b-20 p-l-20">
+									<div class="row">
+										<div class="col-md-6">
+											<h6 class="text-uppercase bold">table header color</h6>
+											<select class="form-control">
+											    <option value="purple" class="text-capitalize">Purple</option>
+											    <option value="green" class="text-capitalize">Green</option>
+											    <option value="blue" class="text-capitalize">Blue</option>
+											    <option value="orange" class="text-capitalize">Orange</option>
+											    <option value="yellow" class="text-capitalize">Yellow</option>
+											</select>
+										</div>
+										<div class="col-md-6">
+											<div class="p-t-30">
+												<div class="checkbox check-info">
+												    <input type="checkbox">
+												    <label class="text-capitalize">with left number</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 							<div class="col-md-12">
 								<form class="p-l-20" role="form">
+									 <div class="form-group form-group-default required">
+								        <label class="text-capitalize">table header</label>
+								        <textarea type="text" class="form-control custom-height" required></textarea>
+								    </div>
 								</form>
+							</div>
+						</div>
+						<div class="row m-t-20" v-if="(chart.type === 'table')">
+							<div class="col-md-12">
+								<h5 class="semi-bold">4. Table Data</h5>
+							</div>
+							<div class="col-md-12 m-b-20">
+								<div class="p-l-20">
+									<button class="btn btn-primary btn-animated from-left fa fa-plus" type="button" v-on:click="add_dataset()">
+									    <span class="text-capitalize">add new table row</span>
+									</button>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<form class="p-l-20" role="form">
+									 <div class="form-group form-group-default required">
+								        <label class="text-capitalize">table row data</label>
+								        <textarea type="text" class="form-control custom-height" required></textarea>
+								    </div>
+								</form>
+							</div>
+						</div>
+						<div class="row m-t-20" v-if="(chart.type === 'table')">
+							<div class="col-md-12">
+								<hr>
+								<div class="p-l-20">
+									<button class="btn btn-info btn-animated from-left fa fa-eye" type="button" v-on:click="">
+									    <span class="text-capitalize">preview table</span>
+									</button>
+									<a class="btn btn-success btn-animated from-left fa fa-download m-l-20" id="download-btn" download="chart.html">
+									    <span class="text-capitalize">download table</span>
+									</a>
+								</div>
 							</div>
 						</div>
 						<!-- END PLACE PAGE CONTENT HERE -->
