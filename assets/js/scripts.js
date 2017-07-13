@@ -95,6 +95,7 @@ var vm = new Vue({
 		// },
 		preview_chart: function () {
 			vm.chart_preview = true;
+			vm.show_download = true;
 			// device handling
 			// var width = window.innerWidth;
 			// if (isMobile()) {
@@ -270,8 +271,6 @@ var vm = new Vue({
 			
 			var ctx = document.getElementById('chart').getContext('2d');
 			var chart = new Chart(ctx,vm.canvas_content);
-
-			vm.show_download = true;
 		},
 		download_file: function () {
  			console.log('download');
