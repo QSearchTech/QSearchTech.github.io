@@ -2,9 +2,10 @@
 var data = {
 	current_step: 1,
 	chart_preview: false,
+	table_preview: false,
+	chart_type: 'table',
 	title: '',
 	chart: {
-		type: 'table',
 		x_label: '',
 		x_data: '',
 		y_label_1: '',
@@ -14,9 +15,10 @@ var data = {
 		y_dataset: [],
 	},
 	table: {
+		header_row: [],
 		column_count: 0,
 		header_color: 'purple',
-		left_number: false,
+		left_number: true,
 		header_data: '',
 		body_data: [],
 	},
@@ -45,11 +47,22 @@ var vm = new Vue({
 			vm.chart.y_dataset.unshift(
 				{
 					label: '',
-					color: '',
+					color: 'purple',
 					data: '',
 					axis: 1,
 				}
 			);
+		},
+		add_table_row: function(column_count){
+			var row_data = {};
+			// var int = '';
+			// for (var i = 0; i < column_count; i++) {
+			// 	int = i.toString();
+			// 	row_data.int = 0;
+			// }
+			row_data.array = [];
+			row_data.raw = '';
+			vm.table.body_data.unshift(row_data);
 		},
 		detect_color: function (color) {
 			switch(color) {
@@ -103,7 +116,7 @@ var vm = new Vue({
 			//     document.getElementById('chart').setAttribute('height', 360);
 			// }
 			// data handling
-			vm.canvas_content.type = vm.chart.type;
+			vm.canvas_content.type = vm.chart_type;
 			vm.canvas_content.data = {
 				labels: vm.seperate_new_line(vm.chart.x_data),
 			};
@@ -283,6 +296,14 @@ var vm = new Vue({
 			// window.open(link, "_blank");
 		},
 		preview_table: function() {
+			vm.table_preview = true;
+			vm.table.header_row = vm.seperate_new_line(vm.table.header_data);
+
+			if (vm.table.left_number === true) {
+				vm.table.header_row.unshift('#');
+			}
+
+			// TODO: Array handling
 
 		},
 		download_table: function() {
