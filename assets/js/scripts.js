@@ -2,8 +2,8 @@
 var data = {
 	current_step: 1,
 	chart_preview: false,
+	title: '',
 	chart: {
-		title: '',
 		type: 'table',
 		x_label: '',
 		x_data: '',
@@ -13,7 +13,14 @@ var data = {
 		y_label_2_percentage: false,
 		y_dataset: [],
 	},
-	filename: '',
+	table: {
+		column_count: 0,
+		header_color: 'purple',
+		left_number: false,
+		header_data: '',
+		body_data: [],
+	},
+	// filename: '',
 	canvas_content: {},
 	saved_canvas_content: {},
 	chart_data: {},
@@ -125,7 +132,7 @@ var vm = new Vue({
 				responsive: false,
 				title: {
 		            display: true,
-		            text: vm.chart.title
+		            text: vm.title
 		        },
 				scales: {
 					xAxes: [{
