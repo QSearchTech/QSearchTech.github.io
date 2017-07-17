@@ -331,7 +331,7 @@
 									<button class="btn btn-info btn-animated from-left fa fa-eye" type="button" v-on:click="preview_chart(); download_chart();">
 									    <span class="text-capitalize">preview chart</span>
 									</button>
-									<a class="btn btn-success btn-animated from-left fa fa-download m-l-20" id="download-btn" download="chart.html">
+									<a class="btn btn-success btn-animated from-left fa fa-download m-l-20" id="download-chart" download="chart.html">
 									    <span class="text-capitalize">Download Chart</span>
 									</a>
 								</div>
@@ -408,16 +408,16 @@
 							<div class="col-md-12">
 								<hr>
 								<div class="p-l-20">
-									<button class="btn btn-info btn-animated from-left fa fa-eye" type="button" v-on:click="preview_table()">
+									<button class="btn btn-info btn-animated from-left fa fa-eye" type="button" v-on:click="preview_table(); download_table();">
 									    <span class="text-capitalize">preview table</span>
 									</button>
-									<a class="btn btn-success btn-animated from-left fa fa-download m-l-20" id="download-btn" download="chart.html">
+									<a class="btn btn-success btn-animated from-left fa fa-download m-l-20" id="download-table" download="table.html">
 									    <span class="text-capitalize">download table</span>
 									</a>
 								</div>
 							</div>
 							<div class="col-md-12" v-if="(table_preview === true)">
-								<div class="p-l-20 p-t-30">
+								<div class="p-l-20 p-t-30" id="table-content">
 									<table class="table">
 										<thead>
 											<tr>
@@ -425,7 +425,9 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr v-for=""></tr>
+											<tr v-for="row in table.body_data">
+												<td v-for="data in row.array">{{data}}</td>
+											</tr>
 										</tbody>
 									</table>
 								</div>
