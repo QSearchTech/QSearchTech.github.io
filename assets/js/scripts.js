@@ -16,7 +16,6 @@ var data = {
 	},
 	table: {
 		header_row: [],
-		column_count: 0,
 		header_color: 'purple',
 		left_number: true,
 		header_data: '',
@@ -53,13 +52,8 @@ var vm = new Vue({
 				}
 			);
 		},
-		add_table_row: function(column_count){
+		add_table_row: function(){
 			var row_data = {};
-			// var int = '';
-			// for (var i = 0; i < column_count; i++) {
-			// 	int = i.toString();
-			// 	row_data.int = 0;
-			// }
 			row_data.array = [];
 			row_data.raw = '';
 			vm.table.body_data.unshift(row_data);
@@ -311,10 +305,6 @@ var vm = new Vue({
 				}
 			}
 
-		},
-		download_table: function() {
-			console.log('download');
-
 			var table_content = document.getElementById('table-content').innerHTML;
 
 			var table_text = 
@@ -322,6 +312,7 @@ var vm = new Vue({
 
 			var link = document.getElementById('download-table');
 			link.href = vm.render_file(table_text);
+
 		},
 		render_file: function (text) {
 			var file = new Blob([text], {type: 'text/plain'});
