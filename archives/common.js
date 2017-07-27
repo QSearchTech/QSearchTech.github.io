@@ -12,4 +12,4 @@ var data = {
 	id: getParameterByName('id'),
 	height: $("#main-content").height(),
 };
-parent.postMessage(data,'https://blog.qsearch.cc');
+parent.postMessage(data,'*');
