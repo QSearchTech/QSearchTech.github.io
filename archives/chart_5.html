@@ -32,71 +32,25 @@
 
 			// The data for our dataset
 			data: {
-				labels: [
-					"China Times", 
-					"ETNEWS新聞雲", 
-					"TVBS 新聞", 
-					"udn.com 聯合新聞網", 
-					"Yahoo! 奇摩新聞", 
-					"三立新聞", 
-					"中央社新聞粉絲團", 
-					"今周刊", 
-					"商業周刊（商周.com）", 
-					"壹週刊", 
-					"天下雜誌", 
-					"東森新聞", 
-					"自由時報", 
-					"蘋果日報", 
-					"蘋果日報即時新聞", 
-					"遠見雜誌"],
+				labels: ["5/5","","","","","","","","","","5/15","","","","","","","","","","","5/26/(首集)","","","","","","","6/2(二集)","","","蔡振南PO文","","","","6/9/(三集)","","","","","","","6/16/(四集)","","","","","","","6/23/(五集)","","","","","","","6/30/(六集)","","","","","","","7/7(完結)","","","","","","","7/14"],
 				datasets: [
 					{
-						label: "3 - 5 月互動黏著度成長率",
+						label: "收視率",
 						backgroundColor: "rgba(109, 92, 174, 0.5)",
 						borderColor: "rgba(109, 92, 174, 1)",
 						borderWidth: 2,
-						data: [
-							22.44,
-							-2.7,
-							2.47,
-							2.92,
-							-10.78,
-							1.75,
-							-1.53,
-							-0.92,
-							-3.53,
-							10.64,
-							-2.41,
-							-5.23,
-							-3.49,
-							-1.94,
-							-15.71,
-							-1.2,
-						],
+						yAxisID:"y-axis-1",
+						data: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,1.22,null,null,null,null,null,null,1.22,null,null,null,null,null,null,1.88,null,null,null,null,null,null,2.62,null,null,null,null,null,null,2.86,null,null,null,null,null,null,3.23,null,null,null,null,null,null,4.16,null,null,null,null,null,null,null],
 					},
 					{
-						label: "3 - 5 月不重複的粉絲人數成長率",
+						type: 'line',
+						label: "社群影響力分數",
 						backgroundColor: "rgba(72, 176, 247, 0.5)",
+						fill: false,
 						borderColor: "rgba(72, 176, 247, 1)",
 						borderWidth: 2,
-						data: [
-							-22.14,
-							-15.25,
-							-21.62,
-							15.59,
-							-13.76,
-							-9.48,
-							-15,
-							-35.07,
-							0.78,
-							25.5,
-							-26.84,
-							-8.32,
-							-18.94,
-							16.42,
-							24.52,
-							-14.51,
-						],
+						yAxisID:"y-axis-2",
+						data: [1099.8,61.4,15.4,71.5,140,200.8,416.4,177.6,19,42.2,14.8,189.7,519.5,777.4,337.6,556.2,565.7,706.5,583.9,322.4,1149.7,2420.2,2317.1,1558,326.8,266.7,0,1063.2,852.1,1967,972.3,74791.5,24387.7,6037.7,8090.7,8782.4,16264.4,8765,6474.9,4009.2,4061.4,8615.7,15068.3,6647.5,4919.9,6693.4,6112.3,4291.8,6084.5,11807.4,6255,3652.8,13285.1,6780.6,11083.5,6293.8,112.4,7796.6,16519.4,13571.7,9866.5,4791.8,16787.7,70222.8,53819.3,31664.7,18190.6,11462.7,7981,4150.1,2546.4],
 					}
 				],
 			  
@@ -106,18 +60,30 @@
 			options: {
 				responsive: false,
 			  scales: {
-				yAxes:[{
-					ticks:{
-						fontSize: isMobile() ? ( width < 360 ? 8 : 10) : 12,
-						callback: function(value) {
-							return value + "%";
+				yAxes:[
+					{
+						position: "left",
+						id: "y-axis-1",
+						scaleLabel: {
+							display: true,
+							labelString: "收視率"
+						},
+						ticks:{
+							fontSize: 10
 						}
 					},
-					scaleLabel: {
-						display: true,
-						labelString: "百分比"
+					{
+						position: "right",
+						id: "y-axis-2",
+						scaleLabel: {
+							display: true,
+							labelString: "聲量指數"
+						},
+						ticks:{
+							fontSize: 10
+						}
 					}
-				}],
+					],
 				xAxes:[{
 					scaleLabel: {
 						display: true,
