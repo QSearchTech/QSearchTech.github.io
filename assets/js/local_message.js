@@ -8,8 +8,19 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-var data = {
-	id: getParameterByName('id'),
-	height: $("#main-content").height(),
-};
+var data = {};
+
+if (document.getElementsByTagName('canvas').length > 0) {
+	// chart
+	data = {
+		id: getParameterByName('id'),
+		height: $("#myChart").height(),
+	};
+} else {
+	// table
+	data = {
+		id: getParameterByName('id'),
+		height: $("#main-content").height(),
+	};
+}
 parent.postMessage(data,'*');
