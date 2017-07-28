@@ -12,5 +12,5 @@ var messageEvent = eventMethod === "attachEvent" ? "onmessage" : "message";
 eventer(messageEvent, function (e) { 
 	if (e.origin !== 'https://qsearchtech.github.io') 
 		return; 
-	document.getElementById(e.data.id).style.height = (e.data.height + 10) + "px";
+	document.getElementById(e.data.id).style.height = (e.data.height + 20) + "px";
 });
