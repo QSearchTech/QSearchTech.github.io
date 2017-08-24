@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css" type="text/css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/flexboxgrid/6.3.0/flexboxgrid.min.css" type="text/css" >
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Q Chord</title>
+    <link rel="stylesheet" type="text/css" href="./css/chord_chart.css">
+  </head>
+  <body>
+    <div class="row">
+      <div class="col-xs-12 center-xs">
+        <h2 id="title">各大媒體按讚群眾重疊度</h2>
+        <div id="legend">
+          <span class="legend middle-xs">電視</span>
+          <span class="legend middle-xs">日報</span>
+          <span class="legend middle-xs">雜誌</span>
+        </div>
+      </div>
+    </div>
+    <div class="row middle-sm">
+      <div class="chart col-xs-12 col-sm-9 last-sm"></div>
+      <div class="table col-xs-12 col-sm-3 center-xs start-sm">
+        <h3></h3>
+        <div class="table-container row bottom-xs"></div>
+      </div>
+    </div>
+    <p class="footer">Chart by <a href="https://relab.cc">Re-lab</a></p>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-58674730-10', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="./js/chord_chart.js"></script>
+  </body>
+</html>

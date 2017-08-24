@@ -1,0 +1,90 @@
+body {
+  overflow-x: hidden;
+  color: #666;
+}
+
+h2 {
+  font-size: 1.6em;
+}
+
+.chord path {
+  fill-opacity: .67;
+  stroke: #000;
+  stroke-width: .5px;
+}
+
+.percent {
+  font-size: 0.8em;
+}
+
+.legend {
+  list-style: none;
+  font-size: 0.8em;
+  margin-bottom: 0.2em;
+  margin-left: 0.6em;
+}
+
+.legend-color {
+  width: 3em;
+  height: 1em;
+  background-color: blue;
+  display: inline-block;
+  margin-right: 0.2em;
+}
+
+.table h3 {
+  padding-bottom: 0.2em;
+  border-bottom: 0.4em solid;
+  text-align: left;
+  display: inline-block;
+}
+
+.table-container .td {
+  padding-top: 1em;
+  padding-left: 1em;
+  text-align: left;
+}
+
+.table-container .tr {
+  font-size: 0.8em;
+}
+
+svg path {
+  stroke-width: 1px;
+}
+
+.footer {
+  color: #bbb;
+  text-align: right;
+  font-size: 0.8em;
+  margin: 0;
+}
+
+.footer a, .footer a:visited, .footer a:link  {
+  color: rgba(0, 144, 210, 0.5);
+  text-decoration: none;
+}
+
+.footer a:hover, .footer a:active  {
+  color: rgba(0, 144, 210, 0.8);
+}
+
+@media screen and (max-width: 767px) {
+  h2 {
+    font-size: 1.4em;
+  }
+  .table-container .row .td:last-of-type {
+    padding-bottom: 1em;
+    border-width: 1px !important;
+  }
+  .table-container .tr .circle {
+    display: none !important;
+  }
+  svg path {
+    stroke-width: 2px;
+  }
+  .legend-color {
+    width: 2em;
+    height: 0.7em;
+  }
+}
