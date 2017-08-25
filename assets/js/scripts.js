@@ -116,7 +116,7 @@ var vm = new Vue({
 				'<script src="../assets/js/chord_chart.js"></script>' +
 				'<script type="text/javascript">' +
 				'$(function() {' +
-				'$("#title").prepend(' + vm.title.stringify() + ');' +
+				'$("#title").prepend(' + vm.title + ');' +
 				'$.get("https://qsearchtech.github.io/archives/' + vm.chord.json_filename + '.json", function(data) {' +
 				'console.log(data);' +
 				'if (data.length) {' +
