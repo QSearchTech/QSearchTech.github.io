@@ -20,11 +20,11 @@ var getNameById = {
 var getColorByType = function(type) {
   switch (type) {
     case '電視':
-      return '#e84949';
+      return '#1e8596';
     case '日報':
-      return '#69bbeb';
+      return '#90c4cd';
     case '雜誌':
-      return '#f6d143';
+      return '#f4e281';
     default:
       return '#000';
   }
@@ -84,41 +84,11 @@ var getTypeByName = function(name) {
 //   });
 // };
 
-$(function() {
-  if (window.location.hash) {
-    month = window.location.hash.substring(1);
-    var year = month.substr(0,4);
-    var m = parseInt(month.substr(-2,2));
-    $('#title').prepend(year + '年' + m + '月');
-    $.get('https://relab.cc/qsearch-sheets/public/201705/overlap', function(data) {
-      if (data.length) {
-        data = data.map(function(d) {
-          var id = d.id;
-          delete d.id;
-          var named = {
-            name: getNameById[id]
-          };
-          Object.keys(d).forEach(function(key) {
-            named[getNameById[key]] = d[key];
-          });
-          return named;
-        });
-        drawChord(data);
-      }
-    });
-  }
-  $('.legend').each(function() {
-    var legend = $('<span class="legend-color"></span>');
-    legend.css({
-      background: getColorByType($(this).text())
-    });
-    $(this).prepend(legend);
-  });
-});
 
-var postToDb = function(target) {
-  $.post('./db/index.php/clicks', { target: month + '-' + target });
-};
+
+// var postToDb = function(target) {
+//   $.post('./db/index.php/clicks', { target: month + '-' + target });
+// };
 
 var indexByName = d3.map(),
     nameByIndex = d3.map();
@@ -189,6 +159,7 @@ function generateMatrix(data) {
 
 function drawChord(data) {
   var matrix = generateMatrix(data);
+  console.log(matrix);
 
   var fill = function(index) {
     return getColorByType(getTypeByName(nameByIndex.get(index)));
@@ -227,7 +198,7 @@ function drawChord(data) {
       .style("cursor", "pointer")
       .on("click", function(g, i) {
         toggleState(g, i);
-        postToDb(nameByIndex.get(i));
+        // postToDb(nameByIndex.get(i));
       });
 
   var percentage = d3.format(".2%");
@@ -256,7 +227,7 @@ function drawChord(data) {
       .style("cursor", "pointer")
       .on("click", function(g, i) {
         toggleState(g, i);
-        postToDb(nameByIndex.get(i));
+        // postToDb(nameByIndex.get(i));
       })
       .each(function(a, b) {
         if (b === 0) {
@@ -317,9 +288,7 @@ function drawChord(data) {
         height: '1em',
         'margin-left': '-0.25em',
         display: 'inline-block',
-      }).append($('<img src="./star_rate_black.svg"/>').css({
-        width: '100%'
-      }));
+      });
 
       // var name = $('<span/>').text('獨家粉絲').css({
       //   'font-weight': 'bold'

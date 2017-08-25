@@ -21,6 +21,12 @@ var data = {
 		header_data: '',
 		body_data: [],
 	},
+	chord: {
+		json_data: [],
+		json_filename: '',
+		json_status: 0,
+		chord_filename: '',
+	},
 	// filename: '',
 	canvas_content: {},
 	saved_canvas_content: {},
@@ -42,6 +48,97 @@ var vm = new Vue({
 		// body...
 	},
 	methods: {
+		file_upload: function(files){
+			var target_file;
+			if (!files.length)
+	                return;
+
+	        // console.log(files);
+	        var config = {
+	        	header: true,
+	        	skipEmptyLines: true,
+	        	error: function(error){
+	        		$('body').pgNotification(
+	        			{
+	        				message: '你上傳的檔案有誤，請再試一次。',
+	        				type: 'danger'
+	        			}
+	        		).show();
+	        	},
+	        	complete: function(data){
+	        		vm.chord.json_data = data.data;
+	        		vm.chord.json_status = 1;
+	        	}
+	        };
+
+	        target_file = files[0];
+	        Papa.parse(target_file, config);
+		},
+		create_chord: function(){
+			var json = "data:text/json;charset=utf-8" + encodeURIComponent(vm.chord.json_data);
+			var json_link = document.getElementById('hidden-json-download');
+			json_link.setAttribute('href',json);
+			json_link.setAttribute('download',vm.chord.json_filename + '.json');
+			json_link.click();
+
+
+			var chord_text = 
+				'<!DOCTYPE html>' +
+				'<html>' + 
+				'<head>' +  
+				'<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css" type="text/css" >' +
+				'<link rel="stylesheet" href="https://cdn.jsdelivr.net/flexboxgrid/6.3.0/flexboxgrid.min.css" type="text/css" >' +
+				'<meta charset="utf-8">' +
+				'<meta name="viewport" content="width=device-width">' +
+				'<title>QSearch Chord Chart</title>' +
+				'<link rel="stylesheet" type="text/css" href="../assets/css/chord_chart.css">' +
+				'</head>' +
+				'<body>' +
+				'<div class="row">' +
+				'<div class="col-xs-12 center-xs">' +
+				'<h2 id="title">各大媒體按讚群眾重疊度</h2>' +
+				'<div id="legend">' +
+				'<span class="legend middle-xs">電視</span>' +
+				'<span class="legend middle-xs">日報</span>' +
+				'<span class="legend middle-xs">雜誌</span>' +
+				'</div>' +
+				'</div>' +
+				'</div>' +
+				'<div class="row middle-sm">' +						
+				'<div class="chart col-xs-12 col-sm-9 last-sm"></div>' +
+				'<div class="table col-xs-12 col-sm-3 center-xs start-sm">' + 
+				'<h3></h3>' +
+				'<div class="table-container row bottom-xs"></div>' +
+				'</div>' +
+				'</div>' +
+				'<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>' +
+				'<script src="https://code.jquery.com/jquery-2.1.4.js"></script>' +
+				'<script src="../assets/js/chord_chart.js"></script>' +
+				'<script type="text/javascript">' +
+				'$(function() {' +
+				'$("#title").prepend(' + vm.title + ');' +
+				'$.get("https://qsearchtech.github.io/archives/"' + vm.chord.json_filename + '".json", function(data) {' +
+				'console.log(data);' +
+				'if (data.length) {' +
+				'data = data.map(function(d) {'	+
+				'var id = d.id;' +
+				'delete d.id;' +
+				'var named = {name: getNameById[id]};' +
+				'Object.keys(d).forEach(function(key) {named[getNameById[key]] = d[key];});' +
+				'return named;});' +
+				'drawChord(data);}});' +
+				'$(".legend").each(function() {' +
+				'var legend = $(' + '"<span class=' + '"legend-color"' + '></span>");' +
+				'legend.css({background: getColorByType($(this).text())});' + 
+				'$(this).prepend(legend);});});' +
+				'</script></body></html>';
+
+			var chord_link = document.getElementById('hidden-chord-download');
+			chord_link.href = vm.render_file(chord_text);
+			chord_link.setAttribute('download',vm.chord.chord_filename);
+			chord_link.click();
+
+		},
 		add_dataset: function (){
 			vm.chart.y_dataset.unshift(
 				{

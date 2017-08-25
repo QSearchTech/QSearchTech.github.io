@@ -211,6 +211,9 @@
 									<br>
 									<input type="radio" id="table" value="table" v-model="chart_type">
 									<label for="table" class="text-capitalize semi-bold">table</label>
+									<br>
+									<input type="radio" id="chord" value="chord" v-model="chart_type">
+									<label for="chord" class="text-capitalize semi-bold">chord chart</label>
 								</div>
 							</div>
 						</div>
@@ -427,6 +430,36 @@
 								</div>
 							</div>
 						</div>
+						<div class="row m-t-20" v-if="(chart_type === 'chord')">
+							<div class="col-md-12">
+								<h5 class="semi-bold">3. Upload CSV File</h5>
+							</div>
+							<div class="col-md-12 m-l-20">
+								<input type="file" name="" @change="file_upload($event.target.files)" class="hidden-input" accept="text/csv" id="csv-upload">
+								<label for="csv-upload" class="bold text-uppercase"><i class="ion-upload m-r-5"></i>upload</label>
+							</div>
+							<div class="col-md-12 m-l-20">
+								<p v-show="chord.json_status === 1" class="bold">CSV File Uploaded!</p>
+							</div>
+							<div class="col-md-12" v-show="chord.json_status === 1">
+								<h5 class="semi-bold">4. Download chord data file</h5>
+							</div>
+							<div class="col-md-12 m-l-20" v-show="chord.json_status === 1">
+								<div class="form-group form-group-default required">
+							        <label class="text-capitalize">chord data file name</label>
+							        <input type="text" class="form-control custom-height" required v-model="chord.json_filename">
+							    </div>
+							    <div class="form-group form-group-default required">
+							        <label class="text-capitalize">chord chart filename</label>
+							        <input type="text" class="form-control custom-height" required v-model="chord.chord_filename">
+							    </div>
+							    <button class="btn btn-primary btn-animated from-left fa fa-check" type="button" v-on:click="create_chord()">
+								    <span class="text-capitalize">download chart and data file</span>
+								</button>
+								<a href="" id="hidden-json-download" v-show="false"></a>
+								<a href="" id="hidden-chord-download" v-show="false"></a>
+							</div>
+						</div>
 						<!-- END PLACE PAGE CONTENT HERE -->
 					</div>
 					<!-- END CONTAINER FLUID -->
@@ -488,11 +521,13 @@
 		<script src="assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 		<script src="assets/plugins/classie/classie.js" type="text/javascript"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.3.5/papaparse.js"></script>
 		<!-- END VENDOR JS -->
 		<!-- BEGIN CORE TEMPLATE JS -->
 		<script src="pages/js/pages.js" type="text/javascript"></script>
 		<!-- END CORE TEMPLATE JS -->
 		<!-- BEGIN PAGE LEVEL JS -->
+
 		<script src="https://unpkg.com/vue"></script>
 		<script src="assets/js/scripts.js" type="text/javascript"></script>
 		<!-- END PAGE LEVEL JS -->

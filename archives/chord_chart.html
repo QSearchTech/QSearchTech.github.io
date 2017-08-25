@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/flexboxgrid/6.3.0/flexboxgrid.min.css" type="text/css" >
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Q Chord</title>
+    <title>QSearch Chord Chart</title>
     <link rel="stylesheet" type="text/css" href="../assets/css/chord_chart.css">
   </head>
   <body>
@@ -26,9 +26,43 @@
         <div class="table-container row bottom-xs"></div>
       </div>
     </div>
-    <p class="footer">Chart by <a href="https://relab.cc">Re-lab</a></p>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="../assets/js/chord_chart.js"></script>
+    <script type="text/javascript">
+      $(function() {
+  // if (window.location.hash) {
+  //   month = window.location.hash.substring(1);
+  //   var year = month.substr(0,4);
+  //   var m = parseInt(month.substr(-2,2));
+
+  // }
+  $('#title').prepend('2017 年 5 月');
+    $.get('https://relab.cc/qsearch-sheets/public/201705/overlap', function(data) {
+      console.log(data);
+      if (data.length) {
+        data = data.map(function(d) {
+          var id = d.id;
+          delete d.id;
+          var named = {
+            name: getNameById[id]
+          };
+          Object.keys(d).forEach(function(key) {
+            named[getNameById[key]] = d[key];
+          });
+          return named;
+        });
+        drawChord(data);
+      }
+    });
+    $('.legend').each(function() {
+      var legend = $('<span class="legend-color"></span>');
+      legend.css({
+        background: getColorByType($(this).text())
+      });
+      $(this).prepend(legend);
+    });
+  });
+    </script>
   </body>
 </html>

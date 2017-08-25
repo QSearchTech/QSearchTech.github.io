@@ -11,3 +11,37 @@ table thead th.bg-purple {
   border: none;
   padding: 20px;
 }
+.hidden-input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+.hidden-input + label {
+  font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 0.01em;
+  font-weight: 700;
+  color: #5e5e5e;
+  background-color: #fff;
+  border: 1px solid #f0f0f0;
+  display: inline-block;
+  cursor: pointer;
+  /* "hand" cursor */
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  transition: color 0.1s linear 0s, background-color 0.1s linear 0s, opacity 0.2s linear 0s !important;
+  padding: 6px 17px;
+}
+.hidden-input:focus + label,
+.hidden-input + label:hover {
+  background-color: #fafafa;
+  border-color: rgba(98, 98, 98, 0.27);
+  color: #1a1a1a;
+}
+.hidden-input + label * {
+  pointer-events: none;
+}
