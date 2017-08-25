@@ -3,7 +3,7 @@ var data = {
 	current_step: 1,
 	chart_preview: false,
 	table_preview: false,
-	chart_type: 'table',
+	chart_type: 'bar',
 	title: '',
 	chart: {
 		x_label: '',
@@ -116,7 +116,7 @@ var vm = new Vue({
 				'<script type="text/javascript">' +
 				'$(function() {' +
 				'$("#title").prepend(' + vm.title + ');' +
-				'$.get("https://qsearchtech.github.io/archives/' + vm.chord.json_filename + '.json", function(data) {' +
+				'$.get("https://qsearchtech.github.io/archives/chord_data/' + vm.chord.json_filename + '.json", function(data) {' +
 				'console.log(data);' +
 				'if (data.length) {' +
 				'data = data.map(function(d) {'	+
@@ -130,7 +130,7 @@ var vm = new Vue({
 				'var legend = $(' + '"<span class=' + '"legend-color"' + '></span>");' +
 				'legend.css({background: getColorByType($(this).text())});' + 
 				'$(this).prepend(legend);});});' +
-				'</script></body></html>';
+				'</script><script src="https://qsearchtech.github.io/assets/js/local_message.js"></script></body></html>';
 
 			var chord_link = document.getElementById('hidden-chord-download');
 			chord_link.href = vm.render_file(chord_text,'text/plain');
