@@ -116,8 +116,8 @@ var vm = new Vue({
 				'<script src="../assets/js/chord_chart.js"></script>' +
 				'<script type="text/javascript">' +
 				'$(function() {' +
-				'$("#title").prepend(' + vm.title + ');' +
-				'$.get("https://qsearchtech.github.io/archives/"' + vm.chord.json_filename + '".json", function(data) {' +
+				'$("#title").prepend(' + vm.title.stringify() + ');' +
+				'$.get("https://qsearchtech.github.io/archives/' + vm.chord.json_filename + '.json", function(data) {' +
 				'console.log(data);' +
 				'if (data.length) {' +
 				'data = data.map(function(d) {'	+
@@ -135,7 +135,7 @@ var vm = new Vue({
 
 			var chord_link = document.getElementById('hidden-chord-download');
 			chord_link.href = vm.render_file(chord_text);
-			chord_link.setAttribute('download',vm.chord.chord_filename);
+			chord_link.setAttribute('download',vm.chord.chord_filename + '.html');
 			chord_link.click();
 
 		},
