@@ -76,7 +76,7 @@ var vm = new Vue({
 		},
 		create_chord: function(){
 			var json_link = document.getElementById('hidden-json-download');
-			json_link.href = vm.render_file(vm.chord.json_data,'text/json');
+			json_link.href = vm.render_file(JSON.stringify(vm.chord.json_data),'text/json');
 			json_link.setAttribute('download',vm.chord.json_filename + '.json');
 			json_link.click();
 
