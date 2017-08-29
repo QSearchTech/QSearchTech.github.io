@@ -20,11 +20,11 @@ var getNameById = {
 var getColorByType = function(type) {
   switch (type) {
     case '電視':
-      return '#1e8596';
+      return '#2b8b85';
     case '日報':
-      return '#90c4cd';
+      return '#65cec7';
     case '雜誌':
-      return '#f4e281';
+      return '#c9c9cd';
     default:
       return '#000';
   }

@@ -156,34 +156,34 @@ var vm = new Vue({
 		},
 		detect_color: function (color) {
 			switch(color) {
-				case 'purple':
+				case 'light_green':
 					return {
-						background: 'rgba(109, 92, 174, 0.5)',
-						border: 'rgba(109, 92, 174, 1)',
-					};
-
-				case 'blue':
-					return {
-						background: 'rgba(72, 176, 247, 0.5)',
-						border: 'rgba(72, 176, 247, 1)'
+						background: 'rgba(101, 206, 199, 1)',
+						border: 'rgba(101, 206, 199, 1)',
 					};
 
 				case 'green':
 					return {
-						background: 'rgba(16, 207, 189, 0.5)',
-						border: 'rgba(16, 207, 189, 1)'
+						background: 'rgba(60, 183, 198, 1)',
+						border: 'rgba(60, 183, 198, 1)'
 					};
 
-				case 'orange':
+				case 'light_blue':
 					return {
-						background: 'rgba(245, 87, 83, 0.5)',
-						border: 'rgba(245, 87, 83, 1)'
+						background: 'rgba(59, 171, 217, 1)',
+						border: 'rgba(59, 171, 217, 1)'
 					};
 
-				case 'yellow':
+				case 'blue':
 					return {
-						background: 'rgba(248, 208, 83, 0.5)',
-						border: 'rgba(248, 208, 83, 1)'
+						background: 'rgba(60, 126, 187, 1)',
+						border: 'rgba(60, 126, 187, 1)'
+					};
+
+				case 'dark_blue':
+					return {
+						background: 'rgba(60, 94, 132, 1)',
+						border: 'rgba(60, 94, 132, 1)'
 					};
 			}
 		},
