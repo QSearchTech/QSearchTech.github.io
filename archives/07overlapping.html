@@ -30,10 +30,34 @@
 	</script>
 	<script src="../assets/js/chord_chart.js">
 	</script>
-	<script type="text/javascript">
-	$(function() {$("#title").prepend('2017年7月各大媒體按讚群眾重疊度');$.get("https://qsearchtech.github.io/archives/chord_data/07overlapping.json", function(data) {console.log(data);if (data.length) {data = data.map(function(d) {var id = d.id;delete d.id;var named = {name: getNameById[id]};Object.keys(d).forEach(function(key) {named[getNameById[key]] = d[key];});return named;});drawChord(data);}});$(".legend").each(function() {var legend = $("<span class='legend-color'><\/span>");legend.css({background: getColorByType($(this).text())});$(this).prepend(legend);});});
-	</script>
-	<script src="https://qsearchtech.github.io/assets/js/local_message.js">
-	</script>
 </body>
 </html>
+<script type="text/javascript">$(function() {
+	$("#title").prepend('2017 年7月各大媒體按讚群眾重疊度');
+	$.get("https://qsearchtech.github.io/archives/chord_data/07overlapping.json", function(data) {
+		console.log(data);
+		if (data.length) {
+			data = data.map(function(d) {
+				var id = d.id;
+				delete d.id;
+				var named = {
+					name: getNameById[id]
+				};
+				Object.keys(d).forEach(function(key) {
+					named[getNameById[key]] = d[key];
+				});
+				return named;
+			});
+			drawChord(data);
+		}
+	});
+	$(".legend").each(function() {
+		var legend = $('<span class="' + 'legend-color' + '"></span>');
+		legend.css({
+			background: getColorByType($(this).text())
+		});
+		$(this).prepend(legend);
+	});
+});
+</script>
+<script src="https://qsearchtech.github.io/assets/js/local_message.js"></script></body></html>
