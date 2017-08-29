@@ -32,7 +32,8 @@
 	</script>
 </body>
 </html>
-<script type="text/javascript">$(function() {
+<script type="text/javascript">
+	$(function() {
 	$("#title").prepend('2017 年7月各大媒體按讚群眾重疊度');
 	$.get("https://qsearchtech.github.io/archives/chord_data/07overlapping.json", function(data) {
 		console.log(data);
@@ -52,7 +53,7 @@
 		}
 	});
 	$(".legend").each(function() {
-		var legend = $('<span class="' + 'legend-color' + '"></span>');
+		var legend = $('<span class="legend-color"></span>');
 		legend.css({
 			background: getColorByType($(this).text())
 		});
