@@ -115,7 +115,7 @@ var vm = new Vue({
 				'<script src="../assets/js/chord_chart.js"></script>' +
 				'<script type="text/javascript">' +
 				'$(function() {' +
-				'$("#title").prepend(' + vm.title + ');' +
+				'$("#title").prepend(' + vm.title.toString() + ');' +
 				'$.get("https://qsearchtech.github.io/archives/chord_data/' + vm.chord.json_filename + '.json", function(data) {' +
 				'console.log(data);' +
 				'if (data.length) {' +
@@ -127,7 +127,7 @@ var vm = new Vue({
 				'return named;});' +
 				'drawChord(data);}});' +
 				'$(".legend").each(function() {' +
-				'var legend = $(' + '"<span class=' + '"legend-color"' + '></span>");' +
+				'var legend = $(' + '"<span class="' + 'legend-color' + '"></span>");' +
 				'legend.css({background: getColorByType($(this).text())});' + 
 				'$(this).prepend(legend);});});' +
 				'</script><script src="https://qsearchtech.github.io/assets/js/local_message.js"></script></body></html>';
