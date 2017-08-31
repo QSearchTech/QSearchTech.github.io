@@ -57,6 +57,7 @@ var vm = new Vue({
 	        var config = {
 	        	header: true,
 	        	skipEmptyLines: true,
+	        	dynamicTyping: true,
 	        	error: function(error){
 	        		$('body').pgNotification(
 	        			{
@@ -75,6 +76,8 @@ var vm = new Vue({
 	        Papa.parse(target_file, config);
 		},
 		create_chord: function(){
+			console.log(JSON.stringify(vm.chord.json_data));
+
 			var json_link = document.getElementById('hidden-json-download');
 			json_link.href = vm.render_file(JSON.stringify(vm.chord.json_data),'text/json');
 			json_link.setAttribute('download',vm.chord.json_filename + '.json');
@@ -120,7 +123,7 @@ var vm = new Vue({
 				'console.log(data);' +
 				'if (data.length) {' +
 				'data = data.map(function(d) {'	+
-				'var id = d.id;' +
+				'var id = d.id.toString();' +
 				'delete d.id;' +
 				'var named = {name: getNameById[id]};' +
 				'Object.keys(d).forEach(function(key) {named[getNameById[key]] = d[key];});' +
