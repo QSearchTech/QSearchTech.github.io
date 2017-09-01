@@ -25,6 +25,8 @@
 		if (isMobile()) {
 		    document.getElementById("myChart").setAttribute("width", 360);
 		    document.getElementById("myChart").setAttribute("height", 360);
+		}else{
+            document.getElementById("myChart").setAttribute("width", $(window).width());
 		}
 		var ctx = document.getElementById("myChart").getContext("2d");
 		var chart = new Chart(ctx, {
