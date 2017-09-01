@@ -23,4 +23,5 @@ if (document.getElementsByTagName('canvas').length > 0) {
 		height: $("#main-content").height(),
 	};
 }
+console.log(data);
 parent.postMessage(data,'*');
