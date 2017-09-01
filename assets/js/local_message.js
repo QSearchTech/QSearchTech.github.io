@@ -26,7 +26,7 @@ if (document.getElementsByTagName('canvas').length > 0) {
 	// chord
 	data = {
 		id: getParameterByName('id'),
-		height: $('.chart').height() + 200,
+		height: $('.chart').height() + 1200,
 	};
 }
 console.log(data);
