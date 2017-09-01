@@ -16,7 +16,7 @@ if (document.getElementsByTagName('canvas').length > 0) {
 		id: getParameterByName('id'),
 		height: $("#myChart").height(),
 	};
-} else if (document.getElementsById('main-content')) {
+} else if (document.getElementById('main-content')) {
 	// table
 	data = {
 		id: getParameterByName('id'),
