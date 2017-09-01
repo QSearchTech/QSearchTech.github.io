@@ -16,11 +16,17 @@ if (document.getElementsByTagName('canvas').length > 0) {
 		id: getParameterByName('id'),
 		height: $("#myChart").height(),
 	};
-} else {
+} else if (document.getElementsById('main-content')) {
 	// table
 	data = {
 		id: getParameterByName('id'),
 		height: $("#main-content").height(),
+	};
+} else {
+	// chord
+	data = {
+		id: getParameterByName('id'),
+		height: $("body").height(),
 	};
 }
 console.log(data);

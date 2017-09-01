@@ -106,7 +106,7 @@ var vm = new Vue({
 				'</div>\n' +
 				'</div>\n' +
 				'</div>\n' +
-				'<div class="row middle-sm">\n' +						
+				'<div class="row middle-sm" id="chord">\n' +						
 				'<div class="chart col-xs-12 col-sm-9 last-sm"></div>\n' +
 				'<div class="table col-xs-12 col-sm-3 center-xs start-sm">\n' + 
 				'<h3></h3>\n' +
