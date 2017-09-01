@@ -8,6 +8,7 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 	<script type="text/javascript">
+
 		var width = $(window).width();	
 		function isMobile() {
 		  var check = false;
@@ -21,6 +22,7 @@
 		    document.getElementById('myChart').setAttribute('height', 200);
 		}
 		var ctx = document.getElementById('myChart').getContext('2d');
+
 		var chart = new Chart(ctx, {
 			// The type of chart we want to create
 			type: 'bar',
