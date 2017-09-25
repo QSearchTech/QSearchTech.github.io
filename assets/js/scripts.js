@@ -386,6 +386,7 @@ var vm = new Vue({
 				'<html>\n' +
 				'<head>\n' + 
 				'<title></title>\n' +
+				'<style type="text/css">#myChart {width: 100%;}</style>\n' +
 				'</head>\n' +
 				'<body>\n' +
 				'<canvas id="myChart" width="900" height="450"></canvas>\n' +
@@ -428,7 +429,23 @@ var vm = new Vue({
 				function(){
 				var table_content = document.getElementById('table-content').innerHTML;
 				var table_text = 
-					'<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"><style>h5{padding-top:15px}table{color:#333;margin-top:20px;font-size:.8rem}table thead th.bg-purple{background-color:#E2DEEF;border:none}@media (max-width:576px){h5{font-size:1rem}table{font-size:.5rem}.table td,.table th{padding:.5rem}}</style></head><body><div class="container"><div class="row"><div class="col-lg-12 col-md-12 col-sm-12" id="main-content"><h5 class="text-center p-t-20">' + vm.title + '</h5>' + table_content + '</div></div></div><script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script><script src="https://qsearchtech.github.io/assets/local_message.js"></script></body></html>';
+					'<!DOCTYPE html>\n' +
+					'<html lang="en">\n' + 
+					'<head>\n' + 
+					'<meta charset="utf-8">\n' + 
+					'<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">\n' + 
+					'<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">\n' +
+					'<style>h5{padding-top:15px}table{color:#333;margin-top:20px;font-size:.8rem}table thead th.bg-purple{background-color:#E2DEEF;border:none}@media (max-width:576px){h5{font-size:1rem}table{font-size:.5rem}.table td,.table th{padding:.5rem}}</style>\n' +
+					'</head>\n' +
+					'<body>\n' +
+					'<div class="container">\n' + 
+					'<div class="row">\n' +
+					'<div class="col-lg-12 col-md-12 col-sm-12" id="main-content">\n' +
+					'<h5 class="text-center p-t-20">' + vm.title + '</h5>' + table_content + '</div></div></div>\n' + 
+					'<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>\n' + 
+					'<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>\n' +
+					'<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>\n' +
+					'<script src="https://qsearchtech.github.io/assets/local_message.js"></script></body></html>';
 
 				var link = document.getElementById('download-table');
 				link.href = vm.render_file(table_text,'text/plain');
