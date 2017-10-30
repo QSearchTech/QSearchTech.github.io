@@ -389,7 +389,7 @@ var vm = new Vue({
 				'<style type="text/css">#myChart {width: 100%;}</style>\n' +
 				'</head>\n' +
 				'<body>\n' +
-				'<canvas id="myChart" width="500" height="250"></canvas>\n' +
+				'<canvas id="myChart" width="900" height="550"></canvas>\n' +
 				'<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>\n' +
 				'<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>\n' +
 				'<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>\n' +
