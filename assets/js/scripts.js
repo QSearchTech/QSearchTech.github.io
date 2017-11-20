@@ -19,7 +19,14 @@ var data = {
 		header_color: 'purple',
 		left_number: true,
 		header_data: '',
-		body_data: [],
+		body_data: []
+	},
+	table_v2: {
+		raw_data: '',
+		header_data: [],
+		body_data:[],
+		header_color: 'purple',
+		left_number: true
 	},
 	chord: {
 		json_data: [],
@@ -145,7 +152,7 @@ var vm = new Vue({
 			vm.chart.y_dataset.unshift(
 				{
 					label: '',
-					color: 'purple',
+					color: 'light_green',
 					data: '',
 					axis: 1,
 				}
@@ -409,6 +416,33 @@ var vm = new Vue({
 			link.href = vm.render_file(chart_text,'text/plain');
 			// window.open(link, "_blank");
 		},
+		preview_table_v2: function() {
+			if(!vm.table_v2.raw_data) return
+
+			vm.table_preview = true;
+
+			var table_rows = vm.table_v2.raw_data.split(/\n/gm);
+			var table_header = table_rows[0].split(/,/gm);
+			var table_body_text = table_rows.slice(1);
+			var table_body = [];
+
+			for(var [index, row] of table_body_text.entries()) {
+				table_body.push(row.split(/,/gm));
+
+				if(vm.table_v2.left_number) {
+					table_body[index].unshift(index+1)
+				}
+			}	
+
+			if(vm.table_v2.left_number) {
+				table_header.unshift("#")
+			}
+
+			vm.table_v2.header_data = table_header;
+			vm.table_v2.body_data = table_body;
+
+			vm.table_download_preparation('table-v2-content');
+		},
 		preview_table: function() {
 			vm.table_preview = true;
 			vm.table.header_row = vm.seperate_new_line(vm.table.header_data);
@@ -425,9 +459,14 @@ var vm = new Vue({
 				}
 			}
 
+			vm.table_download_preparation('table-content');
+		},
+		table_download_preparation: function(dom_id) {
+			if(!dom_id) return
+
 			setTimeout(
 				function(){
-				var table_content = document.getElementById('table-content').innerHTML;
+				var table_content = document.getElementById(dom_id).innerHTML;
 				var table_text = 
 					'<!DOCTYPE html>\n' +
 					'<html lang="en">\n' + 
@@ -449,6 +488,12 @@ var vm = new Vue({
 
 				var link = document.getElementById('download-table');
 				link.href = vm.render_file(table_text,'text/plain');
+				$('body').pgNotification(
+    			{
+    				message: '可以下載囉！',
+    				type: 'success'
+    			}
+    		).show();
 			}, 3000);
 		},
 		render_file: function (text,type) {

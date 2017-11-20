@@ -212,11 +212,18 @@
 									<input type="radio" id="table" value="table" v-model="chart_type">
 									<label for="table" class="text-capitalize semi-bold">table</label>
 									<br>
+									<input type="radio" id="table_v2" value="table_v2" v-model="chart_type">
+									<label for="table_v2" class="text-capitalize semi-bold">table_v2</label>
+									<br>
 									<input type="radio" id="chord" value="chord" v-model="chart_type">
 									<label for="chord" class="text-capitalize semi-bold">chord chart</label>
 								</div>
 							</div>
 						</div>
+
+
+
+						<!-- Section: Bar Chart -->
 						<div class="row m-t-20" v-if="(current_step === 1 && chart_type === 'bar')">
 							<div class="col-md-12">
 								<h5 class="semi-bold">3. X 座標軸資料與選項</h5>
@@ -345,10 +352,15 @@
 								<canvas id="chart"></canvas>
 							</div>
 						</div>
+
+
+
+						<!-- Section: Table -->
 						<div class="row m-t-20" v-if="(current_step === 1 && chart_type === 'table')">
 							<div class="col-md-12">
 								<h5 class="semi-bold">3. 表頭設定</h5>
 							</div>
+
 							<div class="col-md-12">
 								<div class="p-b-20 p-l-20">
 									<div class="row">
@@ -373,6 +385,7 @@
 									</div>
 								</div>
 							</div>
+
 							<div class="col-md-12">
 								<form class="p-l-20" role="form">
 									 <div class="form-group form-group-default required">
@@ -434,6 +447,79 @@
 								</div>
 							</div>
 						</div>
+
+						<!-- Section: Table (Version 2) -->
+						<div class="row m-t-20" v-if="(current_step === 1 && chart_type === 'table_v2')">
+							<div class="col-md-12">
+								<h5 class="semi-bold">3. 表頭設定</h5>
+							</div>
+
+							<div class="col-md-12">
+								<div class="p-b-20 p-l-20">
+									<div class="row">
+										<div class="col-md-4">
+											<h6 class="text-uppercase bold">表頭背景顏色</h6>
+											<select class="form-control" v-model="table_v2.header_color">
+											    <option value="purple" class="text-capitalize">Purple</option>
+											    <option value="green" class="text-capitalize">Green</option>
+											    <option value="blue" class="text-capitalize">Blue</option>
+											    <option value="orange" class="text-capitalize">Orange</option>
+											    <option value="yellow" class="text-capitalize">Yellow</option>
+											</select>
+										</div>
+										<div class="col-md-8">
+											<div class="p-t-30">
+												<div class="checkbox check-info">
+												    <input type="checkbox" v-model="table_v2.left_number" id="leftNumber">
+												    <label for="leftNumber" class="text-capitalize">於左側加上一列數字欄位</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-12">
+								<form class="p-l-20" role="form">
+									 <div class="form-group form-group-default required">
+								        <label class="text-capitalize">表格資料</label>
+								        <textarea type="text" class="form-control custom-height" required v-model="table_v2.raw_data"></textarea>
+								    </div>
+								</form>
+								<p class="fs-14 p-l-20">使用,分隔，並使用enter換行(第一行為表頭)</p>
+							</div>
+						</div>
+						<div class="row m-t-20" v-if="(current_step === 1 && chart_type === 'table_v2')">
+							<div class="col-md-12">
+								<hr>
+								<div class="p-l-20">
+									<button class="btn btn-info btn-animated from-left fa fa-eye" type="button" v-on:click="preview_table_v2();">
+									    <span class="text-capitalize">預覽表格</span>
+									</button>
+									<a class="btn btn-success btn-animated from-left fa fa-download m-l-20" id="download-table" download="table_v2.html">
+									    <span class="text-capitalize">下載表格</span>
+									</a>
+								</div>
+							</div>
+							<div class="col-md-12" v-if="(table_preview === true)">
+								<div class="p-l-20 p-t-30" id="table-v2-content">
+									<table class="table">
+										<thead>
+											<tr>
+												<th class="bg-purple" v-for="content in table_v2.header_data">{{content}}</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr v-for="row in table_v2.body_data">
+												<td v-for="data in row">{{data}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+						<!-- Section: Chord Chart -->
 						<div class="row m-t-20" v-if="(current_step === 1 && chart_type === 'chord')">
 							<div class="col-md-12">
 								<h5 class="semi-bold">3. 上傳 Google Sheets CSV 檔案</h5>
