@@ -10,8 +10,10 @@ var data = {
 		x_data: '',
 		y_label_1: '',
 		y_label_1_percentage: false,
+		y_label_1_begin_at_zero: false,
 		y_label_2: '',
 		y_label_2_percentage: false,
+		y_label_2_begin_at_zero: false,
 		y_dataset: [],
 	},
 	table: {
@@ -197,6 +199,9 @@ var vm = new Vue({
 					};
 			}
 		},
+		selectedBgColor: function (color) {
+			return vm.detect_color(color);
+		},
 		seperate_new_line: function (text) {
 			return text.split(/\n/gm);
 		},
@@ -284,6 +289,7 @@ var vm = new Vue({
 							labelString: vm.chart.y_label_1,
 						},
 						ticks: {
+							beginAtZero:vm.chart.y_label_1_begin_at_zero,
 							fontSize: 10,
 							callback: function(value) {
 								return value + "%";
@@ -299,6 +305,7 @@ var vm = new Vue({
 							labelString: vm.chart.y_label_1
 						},
 						ticks: {
+							beginAtZero:vm.chart.y_label_1_begin_at_zero,
 							fontSize: 10,
 						}
 					});
@@ -313,6 +320,7 @@ var vm = new Vue({
 							labelString: vm.chart.y_label_2
 						},
 						ticks: {
+							beginAtZero:vm.chart.y_label_2_begin_at_zero,
 							fontSize: 10,
 							callback: function(value) {
 								return value + "%";
@@ -328,6 +336,7 @@ var vm = new Vue({
 							labelString: vm.chart.y_label_2
 						},
 						ticks: {
+							beginAtZero:vm.chart.y_label_2_begin_at_zero,
 							fontSize: 10,
 						}
 					});
@@ -343,6 +352,7 @@ var vm = new Vue({
 							labelString: vm.chart.y_label_1,
 						},
 						ticks: {
+							beginAtZero:true,
 							fontSize: 10,
 							callback: function(value) {
 								return value + "%";
@@ -358,6 +368,7 @@ var vm = new Vue({
 							labelString: vm.chart.y_label_1
 						},
 						ticks: {
+							beginAtZero:true,
 							fontSize: 10,
 						}
 					});
