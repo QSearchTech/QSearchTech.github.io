@@ -151,14 +151,18 @@ var vm = new Vue({
 
 		},
 		add_dataset: function (){
-			vm.chart.y_dataset.unshift(
-				{
-					label: '',
-					color: 'light_green',
-					data: '',
-					axis: 1,
-				}
-			);
+			var new_data = {
+				label: '',
+				color: 'light_green',
+				data: '',
+				axis: 1,
+			}
+
+			if(vm.chart_type === "line") {
+				new_data.fill = false;
+			}
+			
+			vm.chart.y_dataset.unshift(new_data);
 		},
 		add_table_row: function(){
 			var row_data = {};
@@ -235,6 +239,11 @@ var vm = new Vue({
 				new_element.backgroundColor = color.background;
 				new_element.borderColor = color.border;
 				new_element.data = vm.parse_number(vm.seperate_new_line(element.data));
+
+				// if chart type is line
+				if(vm.chart_type === 'line') {
+					new_element.fill = element.fill;
+				}
 
 				if (element.axis === 1) {
 					new_element.yAxisID = 'y-axis-1';
