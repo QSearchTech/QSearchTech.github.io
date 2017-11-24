@@ -3,11 +3,11 @@ var data = {
 	current_step: 1,
 	chart_preview: false,
 	table_preview: false,
-	chart_type: 'line',
+	chart_type: 'bar',
 	title: '',
 	chart: {
-		x_label: '1',
-		x_data: '1\n2\n3',
+		x_label: '',
+		x_data: '',
 		y_label_1: '1',
 		y_label_1_percentage: false,
 		y_label_1_begin_at_zero: false,
@@ -163,6 +163,7 @@ var vm = new Vue({
 				label: '',
 				color: 'light_green',
 				data: '',
+				type: vm.chart_type,
 				axis: 1,
 			}
 
@@ -249,12 +250,13 @@ var vm = new Vue({
 				new_element.label = element.label;
 				new_element.backgroundColor = color.background;
 				new_element.borderColor = color.border;
+				new_element.type = element.type;
 
 				// seperate y datasets with seperator.y
 				new_element.data = vm.parse_number(vm.seperate_new_line(element.data, vm.chart.seperator.y));
 
 				// if chart type is line
-				if(vm.chart_type === 'line') {
+				if(new_element.type === 'line' ) {
 					new_element.fill = element.fill;
 				}
 
@@ -374,7 +376,7 @@ var vm = new Vue({
 							labelString: vm.chart.y_label_1,
 						},
 						ticks: {
-							beginAtZero:true,
+							beginAtZero:vm.chart.y_label_1_begin_at_zero,
 							fontSize: 10,
 							callback: function(value) {
 								return value + "%";
@@ -390,7 +392,7 @@ var vm = new Vue({
 							labelString: vm.chart.y_label_1
 						},
 						ticks: {
-							beginAtZero:true,
+							beginAtZero:vm.chart.y_label_1_begin_at_zero,
 							fontSize: 10,
 						}
 					});

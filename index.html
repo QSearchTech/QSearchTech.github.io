@@ -382,16 +382,22 @@
 												<label v-bind:for="'right-'+index" class="text-capitalize semi-bold">對齊右側 Y 座標軸</label>
 											</div>
 										</div>
+										
+										<div class="col-md-3">
+											<h6 class="text-uppercase bold">Type</h6>
+											<select class="form-control" v-model="data.type">
+										    <option value="bar" class="text-capitalize">Bar</option>
+										    <option value="line" class="text-capitalize">Line</option>
+											</select>    
+										</div>
 
-
-										<div class="col-md-6" v-if="chart_type === 'line'">
-											<h6 class="text-uppercase bold">fill</h6>
+										<div class="col-md-3" v-if="data.type === 'line'">
+											<h6 class="text-uppercase bold">填滿</h6>
 											<div class="checkbox check-info">
 										    <input type="checkbox" v-model="data.fill" v-bind:id="'fill-'+index">
 										    <label v-bind:for="'fill-'+index" class="text-capitalize">Fill</label>
 											</div>
 										</div>
-										
 									</div>
 								</div>
 							</div>
