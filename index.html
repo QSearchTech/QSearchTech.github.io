@@ -223,26 +223,36 @@
 
 
 
-						<!-- Section: Bar Chart -->
-						<div class="row m-t-20" v-if="(current_step === 1 && chart_type === 'bar')">
+						<!-- Section: Bar Chart & Line Chart & Mixed Chart-->
+						<div class="row m-t-20" v-if="current_step === 1 && ((chart_type === 'bar') || (chart_type === 'line'))">
 							<div class="col-md-12">
 								<h5 class="semi-bold">3. X 座標軸資料與選項</h5>
 							</div>
 							<div class="col-md-12">
 								<form role="form" class="p-l-20">
 									<div class="form-group form-group-default required">
-								        <label class="text-capitalize">X 座標軸下方資料標籤</label>
-								        <input type="text" class="form-control" name="XlabelName" v-model="chart.x_label" required>
-								    </div>
-								    <div class="form-group form-group-default required">
-								        <label class="text-capitalize">X 座標軸資料</label>
-								        <textarea type="text" class="form-control custom-height" v-model="chart.x_data" required name="XlabelData"></textarea>
-								    </div>
+							        <label class="text-capitalize">X 座標軸下方資料標籤</label>
+							        <input type="text" class="form-control" name="XlabelName" v-model="chart.x_label" required>
+							    </div>
+
+							    <div class="form-group form-group-default required">
+							    	<label class="text-capitalize">分隔字元</label>
+							    	<select class="form-control" v-model="chart.seperator.x">
+									    <option value="\n" class="text-capitalize">Enter</option>
+									    <option value=" " class="text-capitalize">Space</option>
+									    <option value="," class="text-capitalize">逗點</option>
+										</select>
+							    </div>
+							   
+							    <div class="form-group form-group-default required">
+							        <label class="text-capitalize">X 座標軸資料</label>
+							        <textarea type="text" class="form-control custom-height" v-model="chart.x_data" required name="XlabelData"></textarea>
+							    </div>
 								</form>
-								<p class="fs-14 p-l-20">請於輸入 X 座標軸資料時以換行鍵（enter）間隔每個欄位的資料，並注意資料的最後不要有多餘的換行鍵。</p>
+								<p class="fs-14 p-l-20">請於輸入 X 座標軸資料時以 {{chart.seperator.x}} 間隔每個欄位的資料，並注意資料的最後不要有多餘的換行鍵。</p>
 							</div>
 						</div>
-						<div class="row m-t-20" v-if="(current_step === 1 && chart_type === 'bar')">
+						<div class="row m-t-20" v-if="current_step === 1 && ((chart_type === 'bar') || (chart_type === 'line'))">
 							<div class="col-md-12">
 								<h5 class="semi-bold">4. Y 座標軸資料與選項</h5>
 							</div>
@@ -291,148 +301,44 @@
 								</div>
 							</div>
 
-							<div class="col-md-12">
+							<!-- Line Chart Property -->
+							<div class="col-md-12" v-if="chart_type === 'line'">
 								<div class="p-l-20">
-									<h5 class="semi-bold">Y 座標軸資料組</h5>
+									<h5 class="semi-bold">Line Chart 選項</h5>
 								</div>
-							</div>
-							<div class="col-md-12 m-b-20">
 								<div class="p-l-20">
-									<button class="btn btn-primary btn-animated from-left fa fa-plus" type="button" v-on:click="add_dataset()">
-									    <span class="text-capitalize">新增一組資料</span>
-									</button>
-								</div>
-							</div>
-							<div v-for="(data, index) in chart.y_dataset" class="col-md-12">
-								<div class="m-t-30 p-l-20">
-									<h5 class="bold">資料組 {{index + 1}}</h5>
-									<div class="row">
-										<div class="col-md-12">
-											<div class="form-group form-group-default required">
-										        <label class="text-capitalize">資料組名稱（會出現在圖表上方標註資料來源）</label>
-										        <input type="text" class="form-control" name="YlabelName2" v-model="data.label" required>
-										    </div>
-										</div>
-										<div class="col-md-12">
-											<div class="form-group form-group-default required">
-										        <label class="text-capitalize">資料內容</label>
-										        <textarea type="text" class="form-control custom-height" v-model="data.data" required name="data"></textarea>
-										    </div>
-										    <p class="fs-14 p-l-20">請於輸入 Y 座標軸資料時以換行鍵（enter）間隔每個欄位的資料，並注意資料的最後不要有多餘的換行鍵。</p>
-										</div>
-										<div class="col-md-6">
-											<h6 class="text-uppercase bold">圖表顏色</h6>
-											<select class="form-control" v-model="data.color" v-bind:style="selectedBgColor(data.color)">
-											    <option value="light_green" class="text-capitalize">light green</option>
-											    <option value="green" class="text-capitalize">green</option>
-											    <option value="light_blue" class="text-capitalize">light blue</option>
-											    <option value="blue" class="text-capitalize">blue</option>
-											    <option value="dark_blue" class="text-capitalize">dark blue</option>
-											</select>
-										</div>
-										<div class="col-md-6">
-											<h6 class="text-uppercase bold">對齊座標軸：</h6>
-											<div class="radio radio-info m-t-20">
-												<input type="radio" value="1" id="left" v-model="data.axis">
-												<label for="left" class="text-capitalize semi-bold">對齊左側 Y 座標軸</label>
-												<input type="radio" value="2" id="right" v-model="data.axis">
-												<label for="right" class="text-capitalize semi-bold">對齊右側 Y 座標軸</label>
-											</div>
-										</div>
+								  <div class="form-group form-group-default">
+						        <label class="text-capitalize">line圓滑度</label>
+						        <input type="number" class="form-control" name="beizer" v-model="chart.beizer" step="0.1" min="0" max="1">
+						    	</div>
+
+						    	<div class="checkbox check-info">
+								    <input type="checkbox" v-model="chart.show_lines" id="show_lines">
+								    <label for="show_lines" class="text-capitalize">draw lines</label>
 									</div>
 								</div>
-							</div>
-						</div>
-						<div class="row" v-if="(current_step === 1 && chart_type === 'bar')">
-							<div class="col-md-12">
-								<hr>
-								<div class="p-l-20">
-									<button class="btn btn-info btn-animated from-left fa fa-eye" type="button" v-on:click="preview_chart(); download_chart();">
-									    <span class="text-capitalize">預覽圖表</span>
-									</button>
-									<a class="btn btn-success btn-animated from-left fa fa-download m-l-20" id="download-chart" download="chart.html">
-									    <span class="text-capitalize">下載圖表檔案</span>
-									</a>
-								</div>
-							</div>
-							<div class="col-md-12 p-t-30">
-								<canvas id="chart"></canvas>
-							</div>
-						</div>
-
-						<!-- Section: Line Chart -->
-						<div class="row m-t-20" v-if="(current_step === 1 && chart_type === 'line')">
-							<div class="col-md-12">
-								<h5 class="semi-bold">3. X 座標軸資料與選項</h5>
-							</div>
-							<div class="col-md-12">
-								<form role="form" class="p-l-20">
-									<div class="form-group form-group-default required">
-								        <label class="text-capitalize">X 座標軸下方資料標籤</label>
-								        <input type="text" class="form-control" name="XlabelName" v-model="chart.x_label" required>
-								    </div>
-								    <div class="form-group form-group-default required">
-								        <label class="text-capitalize">X 座標軸資料</label>
-								        <textarea type="text" class="form-control custom-height" v-model="chart.x_data" required name="XlabelData"></textarea>
-								    </div>
-								</form>
-								<p class="fs-14 p-l-20">請於輸入 X 座標軸資料時以換行鍵（enter）間隔每個欄位的資料，並注意資料的最後不要有多餘的換行鍵。</p>
-							</div>
-						</div>
-						<div class="row m-t-20" v-if="(current_step === 1 && chart_type === 'line')">
-							<div class="col-md-12">
-								<h5 class="semi-bold">4. Y 座標軸資料與選項</h5>
-							</div>
-							<div class="col-md-12">
-								<div class="p-l-20">
-									<h5 class="semi-bold">左側 Y 座標軸（必填）</h5>
-								</div>
-							</div>
-							<div class="col-md-9">
-								<div class="p-l-20">
-									<div class="form-group form-group-default required">
-						        <label class="text-capitalize">Y 座標軸側邊資料標籤</label>
-						        <input type="text" class="form-control" name="YlabelName1" v-model="chart.y_label_1" required>
-							    </div>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="checkbox check-info">
-								    <input type="checkbox" v-model="chart.y_label_1_percentage" id="percentage1">
-								    <label for="percentage1" class="text-capitalize">以百分比方式顯示</label>
-								    <br>
-								    <input type="checkbox" v-model="chart.y_label_1_begin_at_zero" id="beginatzero1">
-								    <label for="beginatzero1" class="text-capitalize">從零開始</label>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="p-l-20">
-									<h5 class="semi-bold">右側 Y 座標軸（非必填）</h5>
-								</div>
-							</div>
-							<div class="col-md-9">
-								<div class="p-l-20">
-									<div class="form-group form-group-default required">
-						        <label class="text-capitalize">Y 座標軸側邊資料標籤</label>
-						        <input type="text" class="form-control" name="YlabelName2" v-model="chart.y_label_2" required>
-							    </div>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="checkbox check-info">
-								    <input type="checkbox" v-model="chart.y_label_2_percentage" id="percentage2">
-								    <label for="percentage2" class="text-capitalize">以百分比資料顯示</label>
-								    <br>
-								    <input type="checkbox" v-model="chart.y_label_2_begin_at_zero" id="beginatzero2">
-								    <label for="beginatzero2" class="text-capitalize">從零開始</label>
-								</div>
-							</div>
+								
+							</div>		
 
 							<div class="col-md-12">
 								<div class="p-l-20">
 									<h5 class="semi-bold">Y 座標軸資料組</h5>
 								</div>
+							</div>				
+
+							<div class="col-md-12">
+								<div class="p-l-20">
+									<div class="form-group form-group-default required">
+							    	<label class="text-capitalize">分隔字元</label>
+							    	<select class="form-control" v-model="chart.seperator.y">
+									    <option value="\n" class="text-capitalize">Enter</option>
+									    <option value=" " class="text-capitalize">Space</option>
+									    <option value="," class="text-capitalize">逗點</option>
+										</select>
+							    </div>	
+								</div>
 							</div>
+							
 							<div class="col-md-12 m-b-20">
 								<div class="p-l-20">
 									<button class="btn btn-primary btn-animated from-left fa fa-plus" type="button" v-on:click="add_dataset()">
@@ -455,7 +361,7 @@
 										        <label class="text-capitalize">資料內容</label>
 										        <textarea type="text" class="form-control custom-height" v-model="data.data" required name="data"></textarea>
 										    </div>
-										    <p class="fs-14 p-l-20">請於輸入 Y 座標軸資料時以換行鍵（enter）間隔每個欄位的資料，並注意資料的最後不要有多餘的換行鍵。</p>
+										    <p class="fs-14 p-l-20">請於輸入 Y 座標軸資料時以 {{chart.seperator.y}} 間隔每個欄位的資料，並注意資料的最後不要有多餘的換行鍵。</p>
 										</div>
 										<div class="col-md-6">
 											<h6 class="text-uppercase bold">圖表顏色</h6>
@@ -470,25 +376,27 @@
 										<div class="col-md-6">
 											<h6 class="text-uppercase bold">對齊座標軸：</h6>
 											<div class="radio radio-info m-t-20">
-												<input type="radio" value="1" id="left" v-model="data.axis">
-												<label for="left" class="text-capitalize semi-bold">對齊左側 Y 座標軸</label>
-												<input type="radio" value="2" id="right" v-model="data.axis">
-												<label for="right" class="text-capitalize semi-bold">對齊右側 Y 座標軸</label>
+												<input type="radio" value="1" v-bind:id="'left-'+index" v-model="data.axis">
+												<label v-bind:for="'left-'+index" class="text-capitalize semi-bold">對齊左側 Y 座標軸</label>
+												<input type="radio" value="2" v-bind:id="'right-'+index" v-model="data.axis">
+												<label v-bind:for="'right-'+index" class="text-capitalize semi-bold">對齊右側 Y 座標軸</label>
 											</div>
 										</div>
 
-										<div class="col-md-6">
+
+										<div class="col-md-6" v-if="chart_type === 'line'">
 											<h6 class="text-uppercase bold">fill</h6>
 											<div class="checkbox check-info">
-												    <input type="checkbox" v-model="data.fill" id="fill">
-												    <label for="fill" class="text-capitalize">Fill</label>
-												</div>
+										    <input type="checkbox" v-model="data.fill" v-bind:id="'fill-'+index">
+										    <label v-bind:for="'fill-'+index" class="text-capitalize">Fill</label>
+											</div>
 										</div>
+										
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="row" v-if="(current_step === 1 && chart_type === 'line')">
+						<div class="row" v-if="current_step === 1 && ((chart_type === 'bar') || (chart_type === 'line'))">
 							<div class="col-md-12">
 								<hr>
 								<div class="p-l-20">
@@ -503,9 +411,7 @@
 							<div class="col-md-12 p-t-30">
 								<canvas id="chart"></canvas>
 							</div>
-						</div>	
-
-
+						</div>
 
 						<!-- Section: Table -->
 						<div class="row m-t-20" v-if="(current_step === 1 && chart_type === 'table')">

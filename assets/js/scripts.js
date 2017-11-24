@@ -3,18 +3,24 @@ var data = {
 	current_step: 1,
 	chart_preview: false,
 	table_preview: false,
-	chart_type: 'bar',
+	chart_type: 'line',
 	title: '',
 	chart: {
-		x_label: '',
-		x_data: '',
-		y_label_1: '',
+		x_label: '1',
+		x_data: '1\n2\n3',
+		y_label_1: '1',
 		y_label_1_percentage: false,
 		y_label_1_begin_at_zero: false,
 		y_label_2: '',
 		y_label_2_percentage: false,
 		y_label_2_begin_at_zero: false,
 		y_dataset: [],
+		seperator: {
+			x: '\\n',
+			y: '\\n'
+		},
+		beizer: 0.5,
+		show_lines: true
 	},
 	table: {
 		header_row: [],
@@ -44,6 +50,8 @@ var data = {
 	show_download: false,
 };
 
+
+
 // components
 Vue.component('download-modal', {
   template: '#download-modal'
@@ -54,7 +62,7 @@ var vm = new Vue({
 	el: '#main',
 	data: data,
 	created: function () {
-		// body...
+
 	},
 	methods: {
 		file_upload: function(files){
@@ -161,7 +169,7 @@ var vm = new Vue({
 			if(vm.chart_type === "line") {
 				new_data.fill = false;
 			}
-			
+
 			vm.chart.y_dataset.unshift(new_data);
 		},
 		add_table_row: function(){
@@ -206,8 +214,10 @@ var vm = new Vue({
 		selectedBgColor: function (color) {
 			return vm.detect_color(color);
 		},
-		seperate_new_line: function (text) {
-			return text.split(/\n/gm);
+		seperate_new_line: function (text, seperator) {
+			if(!seperator) seperator = '\n'
+			var re = new RegExp(seperator, 'gm')
+			return text.split(re);
 		},
 		parse_number: function (text_array) {
 			var new_array = text_array.map(function (element) {
@@ -226,8 +236,9 @@ var vm = new Vue({
 			// }
 			// data handling
 			vm.canvas_content.type = vm.chart_type;
+			// seperate x data with seperator.x
 			vm.canvas_content.data = {
-				labels: vm.seperate_new_line(vm.chart.x_data),
+				labels: vm.seperate_new_line(vm.chart.x_data, vm.chart.seperator.x),
 			};
 
 			vm.canvas_content.data.datasets = vm.chart.y_dataset.map(function(element){
@@ -238,7 +249,9 @@ var vm = new Vue({
 				new_element.label = element.label;
 				new_element.backgroundColor = color.background;
 				new_element.borderColor = color.border;
-				new_element.data = vm.parse_number(vm.seperate_new_line(element.data));
+
+				// seperate y datasets with seperator.y
+				new_element.data = vm.parse_number(vm.seperate_new_line(element.data, vm.chart.seperator.y));
 
 				// if chart type is line
 				if(vm.chart_type === 'line') {
@@ -384,7 +397,21 @@ var vm = new Vue({
 				}
 			}
 
-    		var cache = [];
+			// options of line charts
+
+			if(vm.chart_type === 'line') {
+
+				vm.canvas_content.options.elements = {
+          line: {
+            tension: vm.chart.beizer,
+          },
+        }
+
+        vm.canvas_content.options.showLines = vm.chart.show_lines
+			
+			}
+
+    	var cache = [];
 			vm.chart_data = JSON.stringify(vm.canvas_content, function(key, value) {
 			    if (typeof value === 'object' && value !== null) {
 			        if (cache.indexOf(value) !== -1) {
