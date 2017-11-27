@@ -57,6 +57,11 @@ Vue.component('download-modal', {
   template: '#download-modal'
 });
 
+Vue.component('draggable-table', {
+    components: { draggable },
+    template: '#draggable'
+});
+
 var vm = new Vue({
 	// options
 	el: '#main',
@@ -251,6 +256,11 @@ var vm = new Vue({
 				new_element.backgroundColor = color.background;
 				new_element.borderColor = color.border;
 				new_element.type = element.type;
+
+				// recognize mixed chart, change chart_type to bar chart to make it work properly
+				if(element.type !== vm.chart_type) {
+					vm.canvas_content.type = 'bar'
+				}
 
 				// seperate y datasets with seperator.y
 				new_element.data = vm.parse_number(vm.seperate_new_line(element.data, vm.chart.seperator.y));
