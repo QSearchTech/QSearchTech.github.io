@@ -324,7 +324,26 @@
 								<div class="p-l-20">
 									<h5 class="semi-bold">Y 座標軸資料組</h5>
 								</div>
-							</div>				
+							</div>
+
+							<!--  bulk dataset input -->
+							<hr>
+							<div class="col-md-12 m-b-20">
+								<div class="p-l-20">
+									<div class="form-group form-group-default required">
+						        <label class="text-capitalize">大量資料輸入模式</label>
+						        <textarea placeholder="Example: label1 1 2 3 \n label2 3 1 2" type="text" class="form-control custom-height" v-model="chart.bulk_raw_data" required name="chart-bulk"></textarea>
+						    	</div>		
+
+						    	<button class="btn btn-info btn-animated from-left fa fa-plus" type="button" v-on:click="add_dataset_bulk()">
+									    <span class="text-capitalize">新增多筆資料</span>
+									</button>	   
+									<div>
+										
+									</div>
+								</div>
+							</div>	
+							<hr>
 
 							<div class="col-md-12">
 								<div class="p-l-20">
@@ -338,7 +357,7 @@
 							    </div>	
 								</div>
 							</div>
-							
+
 							<div class="col-md-12 m-b-20">
 								<div class="p-l-20">
 									<button class="btn btn-primary btn-animated from-left fa fa-plus" type="button" v-on:click="add_dataset()">

@@ -20,7 +20,8 @@ var data = {
 			y: '\\n'
 		},
 		beizer: 0.5,
-		show_lines: true
+		show_lines: true,
+		bulk_raw_data: ''
 	},
 	table: {
 		header_row: [],
@@ -177,6 +178,22 @@ var vm = new Vue({
 			}
 
 			vm.chart.y_dataset.unshift(new_data);
+		},
+		add_dataset_bulk: function () {
+			var y_raws = vm.chart.bulk_raw_data.split(/\n/gm);
+			for (var raw of y_raws) {
+				var fulldata = raw.split(' ');
+				var label = fulldata[0];
+				var dataset = fulldata.slice(1);
+				var new_data = {
+					label: fulldata[0],
+					color: 'light_green',
+					data: dataset.join("\n"),
+					type: vm.chart_type,
+					axis: 1
+				}
+				vm.chart.y_dataset.push(new_data);
+			}
 		},
 		add_table_row: function(){
 			var row_data = {};
