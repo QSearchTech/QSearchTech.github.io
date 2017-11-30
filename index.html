@@ -186,7 +186,9 @@
 						</div>
 						<div class="row m-t-20" v-if="(current_step === 1)">
 							<div class="col-md-12">
-								<h5 class="semi-bold">1. 輸入表頭（將會以標題文字出現在圖表最上方）</h5>
+								<h5 class="semi-bold">1. 輸入表頭（將會以標題文字出現在圖表最上方）
+									<span v-if="(chart_type === 'bar') || (chart_type === 'line')">(例圖 A 處)</span>
+								</h5>
 							</div>
 							<div class="col-md-12">
 								<form role="form" class="p-l-20">
@@ -201,7 +203,7 @@
 							<div class="col-md-12">
 								<h5 class="semi-bold">2. 選擇圖表類型</h5>
 							</div>
-							<div class="col-md-12">
+							<div class="col-md-4">
 								<div class="radio radio-info p-l-20">
 									<input type="radio" id="bar" value="bar" v-model="chart_type">
 									<label for="bar" class="text-capitalize semi-bold">bar chart</label>
@@ -219,6 +221,10 @@
 									<label for="chord" class="text-capitalize semi-bold">chord chart</label>
 								</div>
 							</div>
+							<div class="col-md-8" v-if="(chart_type === 'bar') || (chart_type === 'line')">
+								<h5># 範例</h5>
+								<img src="assets/img/example.png" width="100%" alt="">
+							</div>
 						</div>
 
 
@@ -231,7 +237,7 @@
 							<div class="col-md-12">
 								<form role="form" class="p-l-20">
 									<div class="form-group form-group-default required">
-							        <label class="text-capitalize">X 座標軸下方資料標籤</label>
+							        <label class="text-capitalize">X 座標軸下方資料標籤 (例圖 D 處)</label>
 							        <input type="text" class="form-control" name="XlabelName" v-model="chart.x_label" required>
 							    </div>
 
@@ -245,7 +251,7 @@
 							    </div>
 							   
 							    <div class="form-group form-group-default required">
-							        <label class="text-capitalize">X 座標軸資料</label>
+							        <label class="text-capitalize">X 座標軸資料 (例圖 E 處)</label>
 							        <textarea type="text" class="form-control custom-height" v-model="chart.x_data" required name="XlabelData"></textarea>
 							    </div>
 								</form>
@@ -258,13 +264,13 @@
 							</div>
 							<div class="col-md-12">
 								<div class="p-l-20">
-									<h5 class="semi-bold">左側 Y 座標軸（必填）</h5>
+									<h5 class="semi-bold">左側 Y 座標軸（必填）(例圖 B 處)</h5>
 								</div>
 							</div>
 							<div class="col-md-9">
 								<div class="p-l-20">
 									<div class="form-group form-group-default required">
-						        <label class="text-capitalize">Y 座標軸側邊資料標籤</label>
+						        <label class="text-capitalize">Y 座標軸側邊資料標籤 </label>
 						        <input type="text" class="form-control" name="YlabelName1" v-model="chart.y_label_1" required>
 							    </div>
 								</div>
@@ -280,7 +286,7 @@
 							</div>
 							<div class="col-md-12">
 								<div class="p-l-20">
-									<h5 class="semi-bold">右側 Y 座標軸（非必填）</h5>
+									<h5 class="semi-bold">右側 Y 座標軸（非必填）(例圖 C 處)</h5>
 								</div>
 							</div>
 							<div class="col-md-9">
