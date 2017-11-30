@@ -548,8 +548,16 @@
 							<div class="col-md-12">
 								<h5 class="semi-bold">3. 表頭設定</h5>
 							</div>
-
 							<div class="col-md-12">
+								<div class="p-l-20">
+									<div class="checkbox check-info">
+								    <input type="checkbox" v-model="table_v2.has_header" id="has-header">
+								    <label for="has-header" class="text-capitalize">需要表頭</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-12" v-if="table_v2.has_header">
 								<div class="p-b-20 p-l-20">
 									<div class="row">
 										<div class="col-md-4">
@@ -574,6 +582,13 @@
 								</div>
 							</div>
 
+							
+						</div>
+
+						<div class="row m-t-20" v-if="(current_step === 1 && chart_type === 'table_v2')">
+							<div class="col-md-12">
+								<h5 class="semi-bold">4. 資料輸入</h5>
+							</div>
 							<div class="col-md-12">
 								<form class="p-l-20" role="form">
 									 <div class="form-group form-group-default required">
@@ -599,7 +614,7 @@
 							<div class="col-md-12" v-if="(table_preview === true)">
 								<div class="p-l-20 p-t-30" id="table-v2-content">
 									<table class="table">
-										<thead>
+										<thead v-if="table_v2.has_header">
 											<tr>
 												<th class="bg-purple" v-for="content in table_v2.header_data">{{content}}</th>
 											</tr>
