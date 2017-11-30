@@ -34,6 +34,7 @@ var data = {
 		raw_data: '',
 		header_data: [],
 		body_data:[],
+		has_header: true,
 		header_color: 'purple',
 		left_number: true
 	},
