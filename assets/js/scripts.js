@@ -44,6 +44,13 @@ var data = {
 		json_status: 0,
 		chord_filename: '',
 	},
+	ranking: {
+		data: [],
+		// content | angry_cnt | angry_score | like_cnt | link | image
+		start_time: null,
+		end_time: null,
+
+	},
 	// filename: '',
 	canvas_content: {},
 	saved_canvas_content: {},
@@ -51,7 +58,6 @@ var data = {
 	chart_file: null,
 	show_download: false,
 };
-
 
 
 // components
@@ -63,6 +69,8 @@ Vue.component('draggable-table', {
     components: { draggable },
     template: '#draggable'
 });
+
+Vue.component('date-picker', VueBootstrapDatetimePicker.default);
 
 var vm = new Vue({
 	// options
@@ -195,6 +203,19 @@ var vm = new Vue({
 				}
 				vm.chart.y_dataset.push(new_data);
 			}
+		},
+		add_rankingdata: function() {
+			var new_rk_data = {
+				content: '',
+				angry_cnt: 0,
+				angry_score: 0,
+				like_cnt: 0,
+				link: '',
+				image: ''
+			}
+
+			// content | angry_cnt | angry_score | like_cnt | link | image
+			vm.ranking.data.push(new_rk_data);
 		},
 		add_table_row: function(){
 			var row_data = {};
