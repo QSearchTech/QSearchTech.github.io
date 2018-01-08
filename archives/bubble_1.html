@@ -64,7 +64,7 @@
 					break;
 			}
 		}
-		var max = 1917305;
+		var max = 13106956;
 		var bubble_data = [];
 		$.get('https://qsearchtech.github.io/archives/bubble_data/bubble_1_data.json', function(data) {
 			for (var i = data.length - 1; i >= 0; i--) {
@@ -72,9 +72,9 @@
 					label: data[i].page_name,
 					data: [
 						{
-							x: data[i].interaction_count,
+							x: data[i].interaction_people,
 							y: data[i].interaction_average,
-							r: (data[i].interaction_people / max) * 25 + 5
+							r: (data[i].interaction_count / max) * 25 + 5
 						}
 					],
 					backgroundColor: setColor(i),
@@ -94,9 +94,9 @@
 				// The data for our dataset
 				data: {
 					labels: {
-						x: '粉絲頁互動總次數',
+						x: '粉絲頁互動人數',
 						y: '粉絲頁黏著度',
-						z: '粉絲頁互動人數'
+						z: '粉絲頁互動總次數'
 					},
 					datasets: bubble_data
 				},
@@ -115,7 +115,7 @@
 							{
 								scaleLabel: {
 									display: true,
-									labelString: "粉絲黏著度",
+									labelString: "粉絲頁黏著度",
 									fontSize: isMobile() ? 12 : 14,
 								},
 								ticks:{
@@ -128,7 +128,7 @@
 							{
 								scaleLabel: {
 									display: true,
-									labelString: "粉絲互動總次數",
+									labelString: "粉絲頁互動人數",
 									fontSize: isMobile() ? 12 : 14,
 								},
 								ticks: {
