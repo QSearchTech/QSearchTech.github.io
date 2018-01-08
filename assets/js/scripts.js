@@ -3,8 +3,8 @@ var data = {
 	current_step: 1,
 	chart_preview: false,
 	table_preview: false,
-	chart_type: 'ranking',
-	title: '近一週最令人憤怒貼文排行',
+	chart_type: 'bar',
+	title: '',
 	chart: {
 		x_label: '',
 		x_data: '',
@@ -46,19 +46,12 @@ var data = {
 	},
 	ranking: {
 		data: [{
-			content: '前幾天聽到一件很有趣的事, 解法也很有趣. 網頁現在都是採用UTF-8 編碼, 但是在IE 呈現時, 卻是出現亂碼(自動偵測語系). 聽到的解法:',
-			angry_cnt: 200,
-			angry_score:200,
-			like_cnt: 200,
-			link: 'https://cssminifier.com/',
-			image: 'https://i.imgur.com/WjdpB91.jpg'
-		},{
-			content: '前幾天聽到一件很有趣的事, 解法也很有趣. 網頁現在都是採用UTF-8 編碼, 但是在IE 呈現時, 卻是出現亂碼(自動偵測語系). 聽到的解法:',
-			angry_cnt: 200,
-			angry_score:200,
-			like_cnt: 200,
-			link: 'https://cssminifier.com/',
-			image: 'https://i.imgur.com/WjdpB91.jpg'
+			content: '',
+			angry_cnt: 0,
+			angry_score: 0,
+			like_cnt: 0,
+			link: '',
+			image: ''
 		}],
 		// content | angry_cnt | angry_score | like_cnt | link | image
 		start_time: moment().format('ll'),
