@@ -44,14 +44,36 @@ var data = {
 		json_status: 0,
 		chord_filename: '',
 	},
+	ranking: {
+		data: [{
+			content: '',
+			angry_cnt: 0,
+			angry_score: 0,
+			like_cnt: 0,
+			link: '',
+			image: ''
+		}],
+		// content | angry_cnt | angry_score | like_cnt | link | image
+		start_time: moment().format('ll'),
+		end_time: moment().add(1, 'day').format('ll'),
+		endtime_disabled: {
+			from: null
+		},
+		dpkrconfig: {
+			format: 'll',
+			date: new Date()
+		}
+	},
+	image_upload: {
+		src: ''
+	},
 	// filename: '',
 	canvas_content: {},
 	saved_canvas_content: {},
 	chart_data: {},
 	chart_file: null,
-	show_download: false,
+	show_download: false
 };
-
 
 
 // components
@@ -64,6 +86,8 @@ Vue.component('draggable-table', {
     template: '#draggable'
 });
 
+Vue.component('date-picker', VueBootstrapDatetimePicker.default);
+
 var vm = new Vue({
 	// options
 	el: '#main',
@@ -72,6 +96,35 @@ var vm = new Vue({
 
 	},
 	methods: {
+		prev_image_upload: function(files, idx) {
+			console.log('upload')
+      console.log(files)
+
+      var target_file = new FormData();
+      target_file.append('image', files[0])
+      target_file.append('mime', files[0].type)
+      axios.post('https://api.imgur.com/3/image', target_file, {
+      	'Content-Type': 'multipart/form-data',
+      	headers: { 'Authorization': 'Client-ID 3ca6eb7d18fb904' }
+      	
+      }).then(response => {
+      	var img_url = response.data.data.link
+      	vm.ranking.data[idx].image = img_url;
+      	$('body').pgNotification(
+    			{
+    				message: '上傳完畢',
+    				type: 'success'
+    			}
+    		).show();
+      }).catch(err => {
+      	$('body').pgNotification(
+    			{
+    				message: '你上傳的檔案有誤，請再試一次。',
+    				type: 'danger'
+    			}
+    		).show();
+      })
+    },
 		file_upload: function(files){
 			var target_file;
 			if (!files.length)
@@ -195,6 +248,19 @@ var vm = new Vue({
 				}
 				vm.chart.y_dataset.push(new_data);
 			}
+		},
+		add_rankingdata: function() {
+			var new_rk_data = {
+				content: '',
+				angry_cnt: 0,
+				angry_score: 0,
+				like_cnt: 0,
+				link: '',
+				image: ''
+			}
+
+			// content | angry_cnt | angry_score | like_cnt | link | image
+			vm.ranking.data.push(new_rk_data);
 		},
 		add_table_row: function(){
 			var row_data = {};
@@ -584,5 +650,59 @@ var vm = new Vue({
 			vm.chart_file = window.URL.createObjectURL(file);
 			return vm.chart_file;
 		},
+    ranking_download_preparation: function(dom_id) {
+    	if(!dom_id) return
+
+			setTimeout(
+				function(){
+				var ranking_content = document.getElementById(dom_id).innerHTML;
+				var ranking_text = 
+					'<!DOCTYPE html>\n' +
+					'<html lang="en">\n' + 
+					'<head>\n' + 
+					'<meta charset="utf-8">\n' + 
+					'<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">\n' + 
+					'<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">\n' +
+					'<link rel="stylesheet" type="text/css" href="https://qsearchtech.github.io/assets/css/ranking.css">'+
+					// '<style>.ranking-idx .index,.ranking-title{text-align:center;background-color:#bb9fe3;color:#000}.ranking-title{padding:10px 20px;width:100%}.ranking-items{min-height:130px;border-bottom:1px solid #eee;padding-top:15px;padding-bottom:10px;display:-webkit-flex;display:flex;flex-direction:row}.ranking-content{flex:1;display:-webkit-flex;display:flex;flex-direction:column}.ranking-content .ranking-content-inner{flex:1;color:#000;padding:10px;font-weight:700;font-size:16px}.ranking-content .subitems{flex:0;height:30px;padding-left:10px}.ranking-content .subitems span{font-size:16px;padding-right:5px}.ranking-idx{height:100%;flex:none;width:80px;display:-webkit-flex;display:flex;-webkit-align-items:top;align-items:top;-webkit-justify-content:center;justify-content:center}.ranking-idx .index{margin:15px;font:20px;font-weight:700;line-height:30px;height:30px;width:30px;vertical-align:middle;border-radius:15px}.subitems{color:#59b4c0}.ranking-title .main{font-weight:700;font-size:25px;margin:0 15px}.ranking-title .date{font-weight:300;font-size:16px;margin:0 15px}.ranking-container{padding:5px;width:100%}.ranking-img{flex:none;width:200px;border-radius:5px;overflow:hidden}.ranking-img img{width:100%}@media screen and (max-width:576px){.ranking-content .subitems{flex:0;height:30px;padding-left:10px}.ranking-content .subitems span{font-size:12px;padding-right:5px}}</style>'+
+					// '<style>h5{padding-top:15px}table{color:#333;margin-top:20px;font-size:.8rem}table thead th.bg-purple{background-color:#E2DEEF;border:none}@media (max-width:576px){h5{font-size:1rem}table{font-size:.5rem}.table td,.table th{padding:.5rem}}</style>\n' +
+					'</head>\n' +
+					'<body>\n' +
+					'<div class="container">\n' + 
+					'<div class="row">\n' +
+					'<div class="col-lg-12 col-md-12 col-sm-12" id="main-content">\n' +
+					ranking_content + '</div></div></div>\n' + 
+					'<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>\n' + 
+					'<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>\n' +
+					'<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>\n' +
+					'<script src="https://qsearchtech.github.io/assets/js/ranking.js"></script>'+
+					'<script src="https://qsearchtech.github.io/assets/js/local_message.js"></script></body></html>';
+
+				var link = document.getElementById('download-ranking');
+				link.href = vm.render_file(ranking_text,'text/plain');
+				$('body').pgNotification(
+    			{
+    				message: '可以下載囉！',
+    				type: 'success'
+    			}
+    		).show();
+			}, 500);
+    },
+    startTimeSet: function() {
+    	if(moment(vm.ranking.start_time, 'll').diff(moment(vm.ranking.end_time,'ll')) > 0) {
+    		vm.ranking.end_time = moment(vm.ranking.start_time,'ll').add('1', 'day').format('ll')
+    	}
+    },
+    endTimeSet: function() {
+    	if(moment(vm.ranking.start_time, 'll').diff(moment(vm.ranking.end_time,'ll')) > 0) {
+  			vm.ranking.end_time = moment(vm.ranking.start_time,'ll').add('1', 'day').format('ll')
+  			$('body').pgNotification(
+    			{
+    				message: '日期範圍錯誤',
+    				type: 'danger'
+    			}
+  			).show();
+    	}
+    }
 	},
 });

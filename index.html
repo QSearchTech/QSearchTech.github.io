@@ -21,6 +21,8 @@
 		<link href="assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css" media="screen" />
 		<link href="assets/plugins/bootstrap-select2/select2.css" rel="stylesheet" type="text/css" media="screen" />
 		<link href="assets/plugins/switchery/css/switchery.min.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="assets/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" media="screen" />
+
 		<!-- BEGIN Pages CSS-->
 		<link href="pages/css/pages-icons.css" rel="stylesheet" type="text/css">
 		<link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css" />
@@ -28,6 +30,7 @@
 				<link href="pages/css/ie9.css" rel="stylesheet" type="text/css" />
 		<![endif]-->
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/ranking.css">
 		<script type="text/javascript">
 		window.onload = function()
 		{
@@ -219,6 +222,9 @@
 									<br>
 									<input type="radio" id="chord" value="chord" v-model="chart_type">
 									<label for="chord" class="text-capitalize semi-bold">chord chart</label>
+									<br>
+									<input type="radio" id="ranking" value="ranking" v-model="chart_type">
+									<label for="ranking" class="text-capitalize semi-bold">ranking chart</label>
 								</div>
 							</div>
 							<div class="col-md-8" v-if="(chart_type === 'bar') || (chart_type === 'line')">
@@ -666,6 +672,133 @@
 								<a href="" id="hidden-chord-download" v-show="false"></a>
 							</div>
 						</div>
+
+
+						<!-- Section: Ranking Chart -->
+						<div class="row m-t-20" v-if="(current_step === 1 && chart_type === 'ranking')">
+							<div class="col-md-12">
+								<h5 class="semi-bold">3. 時間</h5>
+							</div>
+							<div class="col-md-12 m-l-20">
+								<label for="rk-start-time">開始時間</label>
+								<date-picker id="rk-start-time" v-model="ranking.start_time" name="start-time" :config="ranking.dpkrconfig" @dp-change="startTimeSet()"></date-picker>
+								<br>
+								<label for="rk-end-time">結束時間</label>
+								<date-picker id="rk-start-time" v-model="ranking.end_time" name="end-time" :config="ranking.dpkrconfig" @dp-change="endTimeSet()"></date-picker>
+							</div>
+
+
+							<div class="col-md-12">
+								<h5 class="semi-bold">4. 排行榜內容</h5>
+							</div>
+
+							<div class="col-md-12">
+								<div class="p-l-20">
+									<button class="btn btn-primary btn-animated from-left" type="button" v-on:click="add_rankingdata()">
+									    <span class="text-capitalize">新增一組資料</span>
+									</button>
+								</div>
+							</div>
+
+							<div v-for="(data, index) in ranking.data" class="col-md-12">
+								<div class="p-l-20">
+									<h5 class="bold">資料{{index+1}}</h5>
+									<div class="form-group form-group-default required">
+							        <label class="text-capitalize">內容</label>
+							        <textarea type="text" v-bind:id="'ranking-'+index+'content'" class="form-control custom-height" v-model="data.content" required name="content"></textarea>
+							    </div>
+							    <div class="form-group required">
+							        <label class="text-capitalize">生氣數</label>
+							        <input class="form-control" type="number" v-model="data.angry_cnt">	
+							        <label class="text-capitalize">生氣分數</label>
+							        <input class="form-control" type="number" v-model="data.angry_score">	
+							        <label class="text-capitalize">讚數</label>
+							        <input class="form-control" type="number" v-model="data.like_cnt">	
+							        
+							    </div>
+
+							    <div class="form-group required">
+							    	<label class="text-capitalize">link</label>
+							    	<input class="form-control" type="text" v-model="data.link">
+							    </div>
+
+							    <div class="col-md-6 p-l-0 form-group required">
+							    	<label class="text-capitalize">image</label>
+							    	<input class="form-control" type="text" v-model="data.image">
+							    		<input type="file" @change="prev_image_upload($event.target.files, index)" accept="image/*" class="hidden-input" v-bind:id="'imgupload-'+(index+1)">
+							    		<label v-bind:for="'imgupload-'+(index+1)">上傳</label>
+							    	
+							    	
+							    </div>
+							    <div class="col-md-6">
+							    	<img :src="data.image" alt="" width="200px">
+							    </div>
+								</div>
+							</div>
+								
+									<hr class="col-md-12">							
+							<div class="col-md-12">
+								<div id="ranking_result" class="ranking-container">
+									<div class="ranking-title">
+										<h4 class="main">{{title}}</h5>
+										<h5 class="date">{{ranking.start_time.split(",")[0]}} - {{ranking.end_time}} Taiwan</h6>
+										
+									</div>
+									<div class="ranking-items" v-for="(data, index) in ranking.data">
+										<div class="ranking-idx">
+											<div class="index">{{index+1}}</div>
+											
+										</div>
+
+										<div class="ranking-content">
+											
+											<div class="ranking-content-inner">
+												<a :href="data.link" target="_blank">
+													<p>
+														{{data.content}}
+													</p>
+												</a>
+											</div>
+
+											<div class="subitems">
+												<span>
+													憤怒數 {{data.angry_cnt}}
+												</span>	
+												<span>
+													憤怒分數 {{data.angry_score}}
+												</span>
+												<span>
+													按讚總數 {{data.like_cnt}}
+												</span>
+											</div>
+											
+										</div>
+
+										<div class="ranking-img hidden-xs" v-show="data.image!==''">
+											<a :href="data.link" target="_blank"><img :src="data.image" alt=""></a>
+										</div>
+
+									</div>
+									
+								</div>
+							</div>
+							
+
+							<div class="col-md-12">
+								<hr>
+								<div class="p-l-20">
+									<button class="btn btn-info btn-animated from-left fa fa-eye" type="button" v-on:click="ranking_download_preparation('ranking_result');">
+									    <span class="text-capitalize">準備下載</span>
+									</button>
+									<a class="btn btn-success btn-animated from-left fa fa-download m-l-20" id="download-ranking" download="ranking.html">
+									    <span class="text-capitalize">下載</span>
+									</a>
+								</div>
+							</div>
+
+							
+						</div>
+
 						<!-- END PLACE PAGE CONTENT HERE -->
 					</div>
 					<!-- END CONTAINER FLUID -->
@@ -679,7 +812,7 @@
 		<!-- END PAGE CONTAINER -->
 		<!-- BEGIN VENDOR JS -->
 		<script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>
-		<script src="assets/plugins/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="assets/plugins/modernizr.custom.js" type="text/javascript"></script>
 		<script src="assets/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
 		<script src="assets/plugins/bootstrapv3/js/bootstrap.min.js" type="text/javascript"></script>
@@ -691,7 +824,16 @@
 		<script src="assets/plugins/jquery-actual/jquery.actual.min.js"></script>
 		<script src="assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 		<script src="assets/plugins/classie/classie.js" type="text/javascript"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment-with-locales.js"></script>
+		<!-- Date-picker itself -->
+		<script src="https://unpkg.com/eonasdan-bootstrap-datetimepicker@4.17.47/build/js/bootstrap-datetimepicker.min.js"></script>
+		<link href="https://unpkg.com/eonasdan-bootstrap-datetimepicker@4.17.47/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+		<!-- Lastly add this package -->
+		<script src="https://unpkg.com/vue@2.5/dist/vue.min.js"></script>
+		<script src="https://unpkg.com/vue-bootstrap-datetimepicker"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+		
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.3.5/papaparse.js"></script>
 
 		<!-- END VENDOR JS -->
@@ -700,12 +842,15 @@
 		<!-- END CORE TEMPLATE JS -->
 		<!-- BEGIN PAGE LEVEL JS -->
 
-		<script src="https://unpkg.com/vue"></script>
+		
 		<!-- CDNJS :: Sortable (https://cdnjs.com/) -->
 		<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.7.0/Sortable.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.5"></script>
 		<!-- CDNJS :: Vue.Draggable (https://cdnjs.com/) -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.15.0/vuedraggable.min.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script src="assets/js/scripts.js" type="text/javascript"></script>
+		<script src="assets/js/ranking.js"></script>
 		<!-- END PAGE LEVEL JS -->
 	</body>
 </html>

@@ -1,2 +1,5 @@
-
+node_modules/
 archives/2017_09_07.html
+.DS_Store
+package.json
+package-lock.json
