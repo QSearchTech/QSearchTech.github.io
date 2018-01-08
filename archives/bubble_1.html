@@ -2,11 +2,13 @@
 <html>
 <head>
 	<title>2017 年 11 月黏著度分析</title>
+	<meta charset="utf-8">
 </head>
 <body>
 	<canvas id="myChart" width="900" height="450"></canvas>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
 	<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
 	<script type="text/javascript">
 		var width = window.innerWidth;	
 		function isMobile() {
@@ -16,24 +18,147 @@
 		  })(navigator.userAgent||navigator.vendor||window.opera);
 		  return check;
 		}
-		
+
+		function setColor(index) {
+			var remainder = index % 10;
+			switch (remainder) {
+				case 0:
+					// purple
+					return 'rgba(109, 92, 174, 0.8)';
+					break;
+				case 1:
+					// light blue
+					return 'rgba(72, 176, 247, 0.8)';
+					break;
+				case 2:
+					// light green
+					return 'rgba(16, 207, 189, 0.8)';
+					break;
+				case 3:
+					// yellow
+					return 'rgba(248, 208, 83, 0.8)';
+					break;
+				case 4:
+					// red
+					return 'rgba(245, 87, 83, 0.8)';
+					break;
+				case 5:
+					// blue
+					return 'rgba(0, 123, 232, 0.8)';
+					break;
+				case 6:
+					// florescent green
+					return 'rgba(0, 232, 186, 0.8)';
+					break;
+				case 7:
+					// dark red
+					return 'rgba(234, 44, 84, 0.8)';
+					break;
+				case 8:
+					// dark yellow
+					return 'rgba(254, 215, 110, 0.8)';
+					break;
+				case 9:
+					// bright green
+					return 'rgba(7, 194, 95, 0.8)';
+					break;
+			}
+		}
+		var max = 1917305;
 		var bubble_data = [];
 		$.get('https://qsearchtech.github.io/archives/bubble_data/bubble_1_data.json', function(data) {
+			for (var i = data.length - 1; i >= 0; i--) {
+				bubble_data.push({
+					label: data[i].page_name,
+					data: [
+						{
+							x: data[i].interaction_count,
+							y: data[i].interaction_average,
+							r: (data[i].interaction_people / max) * 25 + 5
+						}
+					],
+					backgroundColor: setColor(i),
+					hoverBackgroundColor: setColor(i),
+					borderColor: setColor(i),
+				});
+			}
 
-		});
-		
-		if (isMobile()) {
-		    document.getElementById('myChart').setAttribute('width', 300);
-		    document.getElementById('myChart').setAttribute('height', 250);
-		}
-		var ctx = document.getElementById('myChart').getContext('2d');
-		var chart = new Chart(ctx, {
-			// The type of chart we want to create
-			type: 'bubble',
-			// The data for our dataset
-			data: {
-			},
-			// Configuration options go here
+			if (isMobile()) {
+			    document.getElementById('myChart').setAttribute('width', 300);
+			    document.getElementById('myChart').setAttribute('height', 250);
+			}
+			var ctx = document.getElementById('myChart').getContext('2d');
+			var chart = new Chart(ctx, {
+				// The type of chart we want to create
+				type: 'bubble',
+				// The data for our dataset
+				data: {
+					labels: {
+						x: '粉絲頁互動總次數',
+						y: '粉絲頁黏著度',
+						z: '粉絲頁互動人數'
+					},
+					datasets: bubble_data
+				},
+				// Configuration options go here
+				options: {
+					title: {
+						display: true,
+						text: '2017 年 11 月黏著度分析',
+						fontSize: 18
+					},
+					legend: {
+			            display: false
+			        },
+					scales: {
+						yAxes: [
+							{
+								scaleLabel: {
+									display: true,
+									labelString: "粉絲黏著度",
+									fontSize: isMobile() ? 12 : 14,
+								},
+								ticks:{
+									fontSize: 10,
+									stepSize: 5
+								}
+							}
+						],
+						xAxes:[
+							{
+								scaleLabel: {
+									display: true,
+									labelString: "粉絲互動總次數",
+									fontSize: isMobile() ? 12 : 14,
+								},
+								ticks: {
+									fontSize: 10,
+									autoSkip: false
+								}
+							}
+						]
+					},
+					tooltips: {
+						titleMarginBottom: 10,
+						bodySpacing: 10,
+						titleFontSize: isMobile() ? 10 : 12,
+						bodyFontSize: isMobile() ? 10 : 12,
+						displayColors: false,
+						callbacks: {
+							title: function(tooltipItems, data){
+								return data.datasets[tooltipItems[0].datasetIndex].label;
+							},
+							label: function(tooltipItems, data) {
+								return [
+									data.labels.x + '：' + tooltipItems.xLabel, 
+									data.labels.y + '：' + tooltipItems.yLabel, 
+									data.labels.z + '：' + (_.round((data.datasets[tooltipItems.datasetIndex].data[0].r - 5) / 25 * max, 0))
+								];
+							}
+						}
+					}
+				}
+			});
 		});
 	</script>
 </body>
