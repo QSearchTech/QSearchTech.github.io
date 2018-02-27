@@ -3,7 +3,7 @@ var data = {
   current_step: 1,
   chart_preview: false,
   table_preview: false,
-  chart_type: 'ranking',
+  chart_type: 'bar',
   title: '',
   chart: {
     x_label: '',
