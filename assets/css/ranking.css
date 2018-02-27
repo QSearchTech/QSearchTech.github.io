@@ -1,7 +1,7 @@
 .ranking-title {
   padding: 10px 20px;
   width: 100%;
-  background-color: rgb(187,159,227);
+  background-color: #E2DEEF;
   color: black;
   text-align: center;
 }
@@ -60,7 +60,7 @@
 .ranking-content .subitems span {
   display: inline-block;
   font-size: 16px;
-  padding-right: 7px;
+  padding-right: 10px;
 }
 
 .ranking-idx {
@@ -81,7 +81,7 @@
   padding-left: 2px;
   font-size: 16px;
   font-weight: bold;
-  background-color: rgb(187,159,227);
+  background-color: #E2DEEF;
   line-height: 35px;
   text-align:center;
   height: 35px;

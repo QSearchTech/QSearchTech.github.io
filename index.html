@@ -708,14 +708,18 @@
 							        <textarea type="text" v-bind:id="'ranking-'+index+'content'" class="form-control custom-height" v-model="data.content" required name="content"></textarea>
 							    </div>
 							    <div class="form-group required">
-							        <label class="text-capitalize">生氣數</label>
-							        <input class="form-control" type="number" v-model="data.angry_cnt">	
-							        <label class="text-capitalize">生氣分數</label>
-							        <input class="form-control" type="number" v-model="data.angry_score">	
-							        <label class="text-capitalize">讚數</label>
-							        <input class="form-control" type="number" v-model="data.like_cnt">	
-							        
+										<button class="btn btn-primary btn-animated from-left" v-on:click="add_option_detail(index)">新增想呈現數據</button>
 							    </div>
+									
+									<div class="col-md-12" style="border: solid 1px #efefef; padding-bottom: 15px; margin-bottom: 15px;">
+										<div v-for="(item,itemid) in data.stats" class="col-md-4 form-group required">
+								    	<h4>{{itemid + 1}}</h4>
+											<label class="text-capitalize">Title</label>
+											<input class="form-control" type="text" v-model="item.title">
+											<label class="text-capitalize">content</label>
+											<input class="form-control" type="text" v-model="item.content">	
+										</div>
+									</div>
 
 							    <div class="form-group required">
 							    	<label class="text-capitalize">link</label>
@@ -761,14 +765,8 @@
 											</div>
 
 											<div class="subitems">
-												<span>
-													憤怒數 {{data.angry_cnt}}
-												</span>	
-												<span>
-													憤怒分數 {{data.angry_score}}
-												</span>
-												<span>
-													按讚總數 {{data.like_cnt}}
+												<span v-for="sub in data.stats">
+													{{sub.title}} {{sub.content}}
 												</span>
 											</div>
 											
