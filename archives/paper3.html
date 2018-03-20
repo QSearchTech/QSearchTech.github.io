@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 <title></title>
@@ -17,6 +17,6 @@ function isMobile(){var check=false;(function(a){if(/(android|bb\d+|meego).+mobi
 if(isMobile()){
 document.getElementById("myChart").setAttribute("width",300);document.getElementById("myChart").setAttribute("height",250);console.log(width);}
 var ctx=document.getElementById("myChart").getContext("2d");
-var chart=new Chart(ctx,{"type":"line","data":{"labels":["2/21","2/22","2/23","2/24","2/25","2/26","2/27","2/28"],"datasets":[{"label":"互動數","backgroundColor":"rgba(60, 94, 132, 1)","borderColor":"rgba(60, 94, 132, 1)","type":"line","data":[0,65,3651,17287,33267,99313,46939,9642],"fill":false,"yAxisID":"y-axis-1"}]},"options":{"responsive":false,"title":{"display":true,"text":"過去一週互動數"},"scales":{"xAxes":[{"scaleLabel":{"display":true,"labelString":"日期"},"ticks":{"fontSize":10,"autoSkip":false}}],"yAxes":[{"position":"left","id":"y-axis-1","scaleLabel":{"display":true,"labelString":"1"},"ticks":{"beginAtZero":false,"fontSize":10}}]},"tooltips":{"titleMarginBottom":10,"bodySpacing":10,"titleFontSize":14,"bodyFontSize":12,"callbacks":{}},"elements":{"line":{"tension":"0"}},"showLines":true}});</script>
+var chart=new Chart(ctx,{"type":"line","data":{"labels":["2/21","2/22","2/23","2/24","2/25","2/26","2/27","2/28"],"datasets":[{"label":"互動數","backgroundColor":"rgba(60, 94, 132, 1)","borderColor":"rgba(60, 94, 132, 1)","type":"line","data":[0,65,3651,17287,33267,99313,46939,9642],"fill":false,"yAxisID":"y-axis-1"}]},"options":{"responsive":false,"title":{"display":true,"text":"過去一週互動數"},"scales":{"xAxes":[{"scaleLabel":{"display":true,"labelString":""},"ticks":{"fontSize":10,"autoSkip":false}}],"yAxes":[{"position":"left","id":"y-axis-1","scaleLabel":{"display":true,"labelString":""},"ticks":{"beginAtZero":false,"fontSize":10}}]},"tooltips":{"titleMarginBottom":10,"bodySpacing":10,"titleFontSize":14,"bodyFontSize":12,"callbacks":{}},"elements":{"line":{"tension":"0"}},"showLines":true}});</script>
 <script src="https://qsearchtech.github.io/assets/js/local_message.js"></script>
 </body></html>
