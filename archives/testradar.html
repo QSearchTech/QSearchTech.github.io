@@ -1,10 +1,12 @@
+
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-  <title>Radar chart</title>
-    <script>
-    var RadarChart = {
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta charset="utf-8">
+        <title>Radar chart</title>
+        <script>
+        var RadarChart = {
   draw: function(id, d, options){
   var cfg = {
 	 radius: 5,
@@ -215,10 +217,9 @@
 			   .style('font-size', '13px');
   }
 };
-
-    </script>
-    <script>
-   var w = 500,
+        </script>
+        <script>
+        var w = 500,
 	h = 500;
 
 var colorscale = d3.scale.category10();
@@ -338,30 +339,11 @@ var legend = svg.append("g")
 	  .attr("font-size", "11px")
 	  .attr("fill", "#737373")
 	  .text(function(d) { return d; })
-	  ;	 
-    </script>
+	  ;	
 
-	<style>
-		body {
-		  overflow: hidden;
-		  margin: 0;
-		  font-size: 14px;
-		  font-family: "Helvetica Neue", Helvetica;
-		}
-
-		#chart {
-		  position: absolute;
-		  top: 50px;
-		  left: 100px;
-		}	
-	</style>
-  </head>
-  <body>
-    <div id="body">
-	  <div id="chart"></div>
-    </div>
-	
-    <script type="text/javascript" src="script.js"></script>
-
-  </body>
+        </script>
+    </head>
+    <body>
+	    <script type="text/javascript" src="script.js"></script>
+    </body>
 </html>
